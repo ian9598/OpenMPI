@@ -7,6 +7,30 @@
 import mpi.* ;
  
 class Sort {
+
+    public static void BubbleSort( int [ ] num )
+{
+     int j;
+     boolean flag = true;   // set flag to true to begin first pass
+     int temp;   //holding variable
+
+     while ( flag )
+     {
+            flag= false;    //set flag to false awaiting a possible swap
+            for( j=0;  j < num.length -1;  j++ )
+            {
+                   if ( num[ j ] < num[j+1] )   // change to > for ascending sort
+                   {
+                           temp = num[ j ];                //swap elements
+                           num[ j ] = num[ j+1 ];
+                           num[ j+1 ] = temp;
+                          flag = true;              //shows a swap occurred  
+                  } 
+            } 
+      } 
+} 	
+
+
     static public void main(String[] args) throws MPIException {
 	
 	
@@ -36,7 +60,7 @@ class Sort {
 
 	if (0 == myrank) {
 	    message[0] = 10 ; 
-	    int message1[]    = {2, 3, 4, 12, 11, 1, 99, 999,65,43,23, 989, 23, 233, 0, 4, 5 ,332,66, 776} ;	
+	    int message1[]    = {2, 3, 4, 12, 11, 1, 99,87,98,99, 999,165,433,423, 989, 423, 533, 660, 604, 776} ;	
             for ( int i =0 ; i< 20 ; i++) {
 		message[i] = message1[i] ;
 	    }		
@@ -56,19 +80,51 @@ class Sort {
 
 	while (true) {
 	    MPI.COMM_WORLD.recv(message,20, MPI.INT, prev, tag);
-
+	    	
 	    if (0 == myrank) {
 		--message[0];
 		System.out.println("Process 0 decremented value: " + message[0] + " -"+ tag);
-	    }else {
-//		++message[0];
-		 for(int i = 0 ; i< 20 ; i++ ){ 
-                        System.out.println ("GG :" + message[i]);
-                }
-		System.out.println("Process "+myrank+ " decremented value: " + message[0] + " -"+ tag);
-
 	    }
+//	    else {
+//		++message[0];
+//		 for(int i = 0 ; i< 20 ; i++ ){ 
+//                        System.out.println ("GG :" + message[i]);
+//                }
+//		System.out.println("Process "+myrank+ " decremented value: " + message[0] + " -"+ tag);
 
+//	    }
+	    else if ( 1 == myrank){
+		int[] array1 = new int[10 ] ; 
+		for ( int i = 0 ; i < 10 ; i++ ){
+			array1[i]=  message[i];
+		}
+		Sort.BubbleSort(array1) ;
+		for ( int i=  0 ; i < 10 ; i++ ){ 
+                        message[i]=  array1[i];
+                }
+		MPI.COMM_WORLD.send(message,20, MPI.INT, prev, tag);	
+	
+	   }
+	   else if ( 2 == myrank){
+                int[] array1 = new int[10 ] ;
+                for ( int i = 10 ; i < 20 ; i++ ){
+                        array1[i]=  message[i];
+                }
+                Sort.BubbleSort(array1) ;
+                for ( int i=  10 ; i < 20 ; i++ ){
+                        message[i]=  array1[i];
+                }
+                MPI.COMM_WORLD.send(message,20, MPI.INT, prev, tag);
+            
+           }	
+	   else {
+		 for ( int i=  0 ; i < 20 ; i++ ){
+                       // message[i]=  array1[i];
+                 	System.out.println ( "finished : " + message[i]) ; 
+		}  	
+
+	   }	
+	
 	    MPI.COMM_WORLD.send(message, 20, MPI.INT, next, tag);
 	    if (0 == message[0]) {
 		System.out.println("Process " + myrank + " exiting");
