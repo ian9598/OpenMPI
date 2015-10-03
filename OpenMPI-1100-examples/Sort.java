@@ -6,7 +6,7 @@
 
 import mpi.* ;
  
-class Ring {
+class Sort {
     static public void main(String[] args) throws MPIException {
 	
 	
@@ -17,8 +17,9 @@ class Ring {
 	int tag=50;  // Tag for messages	
 	int next;
 	int prev;
-	int message[]	 = {2, 3, 4, 12, 11, 1, 99, 999,65,43,23, 989, 23, 233, 0, 4, 5 ,332,66, 776} ;
-
+//	int message[]	 = {2, 3, 4, 12, 11, 1, 99, 999,65,43,23, 989, 23, 233, 0, 4, 5 ,332,66, 776} ;
+	int message[] = new int [20];	
+	int count[] = new int[1];
 	int myrank = MPI.COMM_WORLD.getRank() ;
 	int size = MPI.COMM_WORLD.getSize() ;
 
@@ -34,10 +35,15 @@ class Ring {
 	   message. */
 
 	if (0 == myrank) {
-	    message[0] = 10;
-
+	    message[0] = 10 ; 
+	    int message1[]    = {2, 3, 4, 12, 11, 1, 99, 999,65,43,23, 989, 23, 233, 0, 4, 5 ,332,66, 776} ;	
+            for ( int i =0 ; i< 20 ; i++) {
+		message[i] = message1[i] ;
+	    }		
+		     
 	    System.out.println("Process 0 sending " + message + " to rank " + next + " (" + size + " processes in ring) -"+ tag); 
-	    MPI.COMM_WORLD.send(message[0], 10,20 ,  MPI.INT, next, tag); 
+	    
+	    MPI.COMM_WORLD.send(message, 20,  MPI.INT, next, tag);		 
 	}
 
 	/* Pass the message around the ring.  The exit mechanism works as
@@ -49,18 +55,21 @@ class Ring {
 	   and can quit normally. */
 
 	while (true) {
-	    MPI.COMM_WORLD.recv(message[0],1,  20, MPI.INT, prev, tag);
+	    MPI.COMM_WORLD.recv(message,20, MPI.INT, prev, tag);
 
 	    if (0 == myrank) {
 		--message[0];
 		System.out.println("Process 0 decremented value: " + message[0] + " -"+ tag);
 	    }else {
 //		++message[0];
+		 for(int i = 0 ; i< 20 ; i++ ){ 
+                        System.out.println ("GG :" + message[i]);
+                }
 		System.out.println("Process "+myrank+ " decremented value: " + message[0] + " -"+ tag);
 
 	    }
 
-	    MPI.COMM_WORLD.send(message[0], 1,20, MPI.INT, next, tag);
+	    MPI.COMM_WORLD.send(message, 20, MPI.INT, next, tag);
 	    if (0 == message[0]) {
 		System.out.println("Process " + myrank + " exiting");
 		break;
@@ -71,7 +80,7 @@ class Ring {
 	   to be received before the program can exit */
 
 	if (0 == myrank) {
-	    MPI.COMM_WORLD.recv(message[0], 1, MPI.INT, prev, tag);
+	    MPI.COMM_WORLD.recv(message,20, MPI.INT, prev, tag);
 	}
     
 	MPI.Finalize();

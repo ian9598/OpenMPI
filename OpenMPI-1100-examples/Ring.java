@@ -35,7 +35,7 @@ class Ring {
 
 	if (0 == myrank) {
 	    message[0] = 10;
-
+	    
 	    System.out.println("Process 0 sending " + message[0] + " to rank " + next + " (" + size + " processes in ring) -"+ tag); 
 	    MPI.COMM_WORLD.send(message, 1, MPI.INT, next, tag); 
 	}
