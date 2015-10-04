@@ -90,7 +90,7 @@ class SortNew {
 		for ( int i = 0 ; i < 10 ; i++ ){
 			array1[i]=  message[i];
 		}
-		Sort.BubbleSort(array1) ;
+		SortNew.BubbleSort(array1) ;
 		for ( int i=  0 ; i < 10 ; i++ ){ 
                         message[i]=  array1[i];
                 }
@@ -102,7 +102,7 @@ class SortNew {
                 for ( int i = 0 ; i < 10 ; i++ ){
                         array1[i]=  message[i+10];
                 }
-                Sort.BubbleSort(array1) ;
+                SortNew.BubbleSort(array1) ;
                 for ( int i=  0 ; i < 10 ; i++ ){
                         message[i+10]=  array1[i];
                 }
