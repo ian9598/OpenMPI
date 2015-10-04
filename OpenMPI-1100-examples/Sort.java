@@ -19,7 +19,7 @@ class Sort {
             flag= false;    //set flag to false awaiting a possible swap
             for( j=0;  j < num.length -1;  j++ )
             {
-                   if ( num[ j ] < num[j+1] )   // change to > for ascending sort
+                   if ( num[ j ] > num[j+1] )   // change to > for ascending sort
                    {
                            temp = num[ j ];                //swap elements
                            num[ j ] = num[ j+1 ];
@@ -107,12 +107,12 @@ class Sort {
 	   }
 	   else if ( 2 == myrank){
                 int[] array1 = new int[10 ] ;
-                for ( int i = 10 ; i < 20 ; i++ ){
-                        array1[i]=  message[i];
+                for ( int i = 0 ; i < 10 ; i++ ){
+                        array1[i]=  message[i+10];
                 }
                 Sort.BubbleSort(array1) ;
-                for ( int i=  10 ; i < 20 ; i++ ){
-                        message[i]=  array1[i];
+                for ( int i=  0 ; i < 10 ; i++ ){
+                        message[i+10]=  array1[i];
                 }
                 MPI.COMM_WORLD.send(message,20, MPI.INT, prev, tag);
             
