@@ -67,7 +67,14 @@ class Sort {
 //	    }		
 		     
 	    System.out.println("Process 0 sending " + message + " to rank " + next + " (" + size + " processes in ring) -"+ tag); 
-	    
+	    int[] array1 = new int[10] ;
+                for ( int i = 0 ; i < 10 ; i++ ){
+                        array1[i]=  message[i+(10* myrank)];
+                }
+                Sort.BubbleSort(array1) ;
+                for ( int i=  0 ; i < 10 ; i++ ){
+                        message[i+(10*myrank)]=  array1[i];
+                }
 	    MPI.COMM_WORLD.send(message, 41,  MPI.INT, next, tag);		 
 	}
 
