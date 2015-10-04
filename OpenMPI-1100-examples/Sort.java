@@ -41,8 +41,8 @@ class Sort {
 	int tag=50;  // Tag for messages	
 	int next;
 	int prev;
-//	int message[]	 = {2, 3, 4, 12, 11, 1, 99, 999,65,43,23, 989, 23, 233, 0, 4, 5 ,332,66, 776} ;
-	int message[] = new int [20];	
+	int message[]	 = {2, 3, 4, 12, 11, 1, 99,87,98,99, 999,165,433,423, 989, 423, 533, 660, 604, 776};
+//	int message[] = new int [20];	
 	int count[] = new int[1];
 	int myrank = MPI.COMM_WORLD.getRank() ;
 	int size = MPI.COMM_WORLD.getSize() ;
@@ -59,11 +59,11 @@ class Sort {
 	   message. */
 
 	if (0 == myrank) {
-	    message[0] = 10 ; 
+//	    message[0] = 10 ; 
 	    int message1[]    = {2, 3, 4, 12, 11, 1, 99,87,98,99, 999,165,433,423, 989, 423, 533, 660, 604, 776} ;	
-            for ( int i =0 ; i< 20 ; i++) {
-		message[i] = message1[i] ;
-	    }		
+  //          for ( int i =0 ; i< 20 ; i++) {
+//		message[i] = message1[i] ;
+//	    }		
 		     
 	    System.out.println("Process 0 sending " + message + " to rank " + next + " (" + size + " processes in ring) -"+ tag); 
 	    
@@ -85,14 +85,6 @@ class Sort {
 		--message[0];
 		System.out.println("Process 0 decremented value: " + message[0] + " -"+ tag);
 	    }
-//	    else {
-//		++message[0];
-//		 for(int i = 0 ; i< 20 ; i++ ){ 
-//                        System.out.println ("GG :" + message[i]);
-//                }
-//		System.out.println("Process "+myrank+ " decremented value: " + message[0] + " -"+ tag);
-
-//	    }
 	    else if ( 1 == myrank){
 		int[] array1 = new int[10 ] ; 
 		for ( int i = 0 ; i < 10 ; i++ ){
