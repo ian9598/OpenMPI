@@ -60,14 +60,15 @@ class Sort {
 
 	if (0 == myrank) {
 //	    message[0] = 10 ; 
-	    int message1[]    = {2, 3, 4, 12, 11, 1, 99,87,98,99, 999,165,433,423, 989, 423, 533, 660, 604, 776} ;	
+	    int message1[]    = {2, 3, 4, 12, 11, 1, 99,87,98,99, 999,165,433,423, 989, 423, 533, 660, 604, 776,
+	    	1912, 1413, 1104, 1212, 1311, 1231, 1199,1487,1098,1099,3999,2165,1433,1423, 3989, 7423, 3533, 1660, 1604, 2776};	
   //          for ( int i =0 ; i< 20 ; i++) {
 //		message[i] = message1[i] ;
 //	    }		
 		     
 	    System.out.println("Process 0 sending " + message + " to rank " + next + " (" + size + " processes in ring) -"+ tag); 
 	    
-	    MPI.COMM_WORLD.send(message, 20,  MPI.INT, next, tag);		 
+	    MPI.COMM_WORLD.send(message, 40,  MPI.INT, next, tag);		 
 	}
 
 	/* Pass the message around the ring.  The exit mechanism works as
@@ -79,12 +80,13 @@ class Sort {
 	   and can quit normally. */
 
 	while (true) {
-	    MPI.COMM_WORLD.recv(message,20, MPI.INT, prev, tag);
+	    int goThrough = 0 ; // numbe of machine has been calculate 	
+	    MPI.COMM_WORLD.recv(message,40, MPI.INT, prev, tag);
 	    	
 	    if (0 == myrank) {
 		--message[0];
 		System.out.println("Process 0 decremented value: " + message[0] + " -"+ tag);
-	    }
+	    }/*
 	    else if ( 1 == myrank){
 		int[] array1 = new int[10 ] ; 
 		for ( int i = 0 ; i < 10 ; i++ ){
@@ -94,9 +96,7 @@ class Sort {
 		for ( int i=  0 ; i < 10 ; i++ ){ 
                         message[i]=  array1[i];
                 }
-		//MPI.COMM_WORLD.send(message,20, MPI.INT, next, tag);	
-	
-	   }
+           }
 	   else if ( 2 == myrank){
                 int[] array1 = new int[10 ] ;
                 for ( int i = 0 ; i < 10 ; i++ ){
@@ -114,11 +114,23 @@ class Sort {
                        // message[i]=  array1[i];
                  	System.out.println ( "finished : " + message[i]) ; 
 		}  	
-
-	   }	
+	   }*/
+	   else {
+	   	int[] array1 = new int[10] ;
+                for ( int i = 0 ; i < 10 ; i++ ){
+                        array1[i]=  message[i+(10* myrank)];
+                }
+                Sort.BubbleSort(array1) ;
+                for ( int i=  0 ; i < 10 ; i++ ){
+                        message[i+(10*myrank)]=  array1[i];
+                }
+                goThrough ++ ; 
+	   }
+	   	
+	   }
 	
-	    MPI.COMM_WORLD.send(message, 20, MPI.INT, next, tag);
-	    if (0 == message[0]) {
+	    MPI.COMM_WORLD.send(message, 40, MPI.INT, next, tag);
+	    if (size == goThrough) {
 		System.out.println("Process " + myrank + " exiting");
 		break;
 	    }
@@ -128,7 +140,7 @@ class Sort {
 	   to be received before the program can exit */
 
 	if (0 == myrank) {
-	    MPI.COMM_WORLD.recv(message,20, MPI.INT, prev, tag);
+	    MPI.COMM_WORLD.recv(message,40, MPI.INT, prev, tag);
 	}
     
 	MPI.Finalize();
