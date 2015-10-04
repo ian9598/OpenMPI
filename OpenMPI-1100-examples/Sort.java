@@ -94,7 +94,7 @@ class Sort {
 		for ( int i=  0 ; i < 10 ; i++ ){ 
                         message[i]=  array1[i];
                 }
-		MPI.COMM_WORLD.send(message,20, MPI.INT, prev, tag);	
+		//MPI.COMM_WORLD.send(message,20, MPI.INT, next, tag);	
 	
 	   }
 	   else if ( 2 == myrank){
@@ -106,7 +106,7 @@ class Sort {
                 for ( int i=  0 ; i < 10 ; i++ ){
                         message[i+10]=  array1[i];
                 }
-                MPI.COMM_WORLD.send(message,20, MPI.INT, prev, tag);
+               // MPI.COMM_WORLD.send(message,20, MPI.INT, next, tag);
             
            }	
 	   else {
