@@ -41,7 +41,7 @@ class SortNew {
 	int tag=50;  // Tag for messages	
 	int next;
 	int prev;
-	int message[]	 = {2, 3, 4, 12, 11, 1, 99,87,98,99, 999,165,433,423, 989, 423, 533, 660, 604, 776};
+	int message[]	 = {2, 3, 4, 12, 11, 1, 99,87,98,99, 999,165,433,423, 989, 423, 533, 660, 604, 776,10};
 //	int message[] = new int [21];	
 	int count[] = new int[1];
 	int myrank = MPI.COMM_WORLD.getRank() ;
