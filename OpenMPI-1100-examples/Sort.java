@@ -144,7 +144,7 @@ class Sort {
 	    	
 	    MPI.COMM_WORLD.recv(message,41, MPI.INT, prev, tag);
 	    for ( int i = 0 ; i< 40 ; i++ ){
-	    	system.out.println(message[i]+",");
+	    	System.out.println(message[i]+",");
 	    }	
 		
 	}
