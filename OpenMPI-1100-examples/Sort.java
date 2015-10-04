@@ -141,7 +141,12 @@ class Sort {
 	   to be received before the program can exit */
 
 	if (0 == myrank) {
+	    	
 	    MPI.COMM_WORLD.recv(message,40, MPI.INT, prev, tag);
+	    for ( int i = 0 ; i< 40 ; i++ ){
+	    	system.out.println(message[i]+",");
+	    }	
+		
 	}
     
 	MPI.Finalize();
