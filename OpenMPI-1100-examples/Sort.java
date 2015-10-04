@@ -78,9 +78,9 @@ class Sort {
 	   passes the message on to the next process and then quits.  By
 	   passing the 0 message first, every process gets the 0 message
 	   and can quit normally. */
-
+	int goThrough = 0 ; // numbe of machine has been calculate 
 	while (true) {
-	    int goThrough = 0 ; // numbe of machine has been calculate 	
+	    	
 	    MPI.COMM_WORLD.recv(message,40, MPI.INT, prev, tag);
 	    	
 	    if (0 == myrank) {
