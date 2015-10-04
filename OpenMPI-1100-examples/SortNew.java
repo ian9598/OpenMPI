@@ -42,7 +42,7 @@ class SortNew {
 	int next;
 	int prev;
 	int message[]	 = {2, 3, 4, 12, 11, 1, 99,87,98,99, 999,165,433,423, 989, 423, 533, 660, 604, 776};
-//	int message[] = new int [20];	
+//	int message[] = new int [21];	
 	int count[] = new int[1];
 	int myrank = MPI.COMM_WORLD.getRank() ;
 	int size = MPI.COMM_WORLD.getSize() ;
@@ -59,7 +59,7 @@ class SortNew {
 	   message. */
 
 	if (0 == myrank) {
-	    message[message.length] = 10 ; 
+	    message[20] = 10 ; 
 	    int message1[]    = {2, 3, 4, 12, 11, 1, 99,87,98,99, 999,165,433,423, 989, 423, 533, 660, 604, 776} ;	
 		
 		     
@@ -80,7 +80,7 @@ class SortNew {
 	    MPI.COMM_WORLD.recv(message,20, MPI.INT, prev, tag);
 	    	
 	    if (0 == myrank) {
-		--message[message.length];
+		--message[20];
 		System.out.println("Process 0 decremented value: " + message[0] + " -"+ tag);
 	    }
 	    else if ( 1 == myrank){
@@ -117,7 +117,7 @@ class SortNew {
 	   }	
 	
 	    MPI.COMM_WORLD.send(message, 20, MPI.INT, next, tag);
-	    if (0 == message[message.length]) {
+	    if (0 == message[20]) {
 		System.out.println("Process " + myrank + " exiting");
 		break;
 	    }
