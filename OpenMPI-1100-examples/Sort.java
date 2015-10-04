@@ -127,7 +127,7 @@ class Sort {
                 goThrough ++ ; 
 	   }
 	   	
-	   }
+	   
 	
 	    MPI.COMM_WORLD.send(message, 40, MPI.INT, next, tag);
 	    if (size == goThrough) {
