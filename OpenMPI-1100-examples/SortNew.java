@@ -59,11 +59,9 @@ class SortNew {
 	   message. */
 
 	if (0 == myrank) {
-//	    message[0] = 10 ; 
+	    message[message.length] = 10 ; 
 	    int message1[]    = {2, 3, 4, 12, 11, 1, 99,87,98,99, 999,165,433,423, 989, 423, 533, 660, 604, 776} ;	
-  //          for ( int i =0 ; i< 20 ; i++) {
-//		message[i] = message1[i] ;
-//	    }		
+		
 		     
 	    System.out.println("Process 0 sending " + message + " to rank " + next + " (" + size + " processes in ring) -"+ tag); 
 	    
@@ -77,12 +75,12 @@ class SortNew {
 	   passes the message on to the next process and then quits.  By
 	   passing the 0 message first, every process gets the 0 message
 	   and can quit normally. */
-	int go = 2 ;
+	
 	while (true) {
 	    MPI.COMM_WORLD.recv(message,20, MPI.INT, prev, tag);
 	    	
 	    if (0 == myrank) {
-		--message[0];
+		--message[message.length];
 		System.out.println("Process 0 decremented value: " + message[0] + " -"+ tag);
 	    }
 	    else if ( 1 == myrank){
@@ -95,7 +93,7 @@ class SortNew {
                         message[i]=  array1[i];
                 }
 		//MPI.COMM_WORLD.send(message,20, MPI.INT, next, tag);	
-		--go ;
+	
 	   }
 	   else if ( 2 == myrank){
                 int[] array1 = new int[10 ] ;
@@ -107,7 +105,7 @@ class SortNew {
                         message[i+10]=  array1[i];
                 }
                // MPI.COMM_WORLD.send(message,20, MPI.INT, next, tag);
-            	--go ;
+            
            }	
 	   else {
 	   	System.out.println(myrank); 
@@ -119,7 +117,7 @@ class SortNew {
 	   }	
 	
 	    MPI.COMM_WORLD.send(message, 20, MPI.INT, next, tag);
-	    if (0 == go) {
+	    if (0 == message[message.length]) {
 		System.out.println("Process " + myrank + " exiting");
 		break;
 	    }
