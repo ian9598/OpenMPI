@@ -77,7 +77,7 @@ class SortNew {
 	   passes the message on to the next process and then quits.  By
 	   passing the 0 message first, every process gets the 0 message
 	   and can quit normally. */
-
+	int go = 0 ;
 	while (true) {
 	    MPI.COMM_WORLD.recv(message,20, MPI.INT, prev, tag);
 	    	
@@ -95,7 +95,7 @@ class SortNew {
                         message[i]=  array1[i];
                 }
 		//MPI.COMM_WORLD.send(message,20, MPI.INT, next, tag);	
-	
+		go++ ;
 	   }
 	   else if ( 2 == myrank){
                 int[] array1 = new int[10 ] ;
@@ -107,7 +107,7 @@ class SortNew {
                         message[i+10]=  array1[i];
                 }
                // MPI.COMM_WORLD.send(message,20, MPI.INT, next, tag);
-            
+            	go++ ;
            }	
 	   else {
 		 for ( int i=  0 ; i < 20 ; i++ ){
@@ -118,7 +118,7 @@ class SortNew {
 	   }	
 	
 	    MPI.COMM_WORLD.send(message, 20, MPI.INT, next, tag);
-	    if (0 == message[0]) {
+	    if (2 == go) {
 		System.out.println("Process " + myrank + " exiting");
 		break;
 	    }
