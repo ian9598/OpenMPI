@@ -119,7 +119,7 @@ class SortNew {
 	   }	
 	
 	    MPI.COMM_WORLD.send(message, 20, MPI.INT, next, tag);
-	    if (2 == go) {
+	    if (0 == message[0]) {
 		System.out.println("Process " + myrank + " exiting");
 		break;
 	    }
