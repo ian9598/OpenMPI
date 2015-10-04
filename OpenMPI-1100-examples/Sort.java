@@ -116,6 +116,7 @@ class Sort {
 		}  	
 	   }*/
 	   else {
+	   	System.out.println ( "Here" + myrank);
 	   	int[] array1 = new int[10] ;
                 for ( int i = 0 ; i < 10 ; i++ ){
                         array1[i]=  message[i+(10* myrank)];
@@ -130,7 +131,7 @@ class Sort {
 	   
 	
 	    MPI.COMM_WORLD.send(message, 40, MPI.INT, next, tag);
-	    if (size == goThrough) {
+	    if (4 == goThrough) {
 		System.out.println("Process " + myrank + " exiting");
 		break;
 	    }
