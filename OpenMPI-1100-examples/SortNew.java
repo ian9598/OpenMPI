@@ -110,7 +110,7 @@ class SortNew {
             	go++ ;
            }	
 	   else {
-	   	system.out.println(myrank); 
+	   	System.out.println(myrank); 
 		 for ( int i=  0 ; i < 20 ; i++ ){
                        // message[i]=  array1[i];
                  	System.out.println ( "finished : " + message[i]) ; 
