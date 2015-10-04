@@ -81,7 +81,7 @@ class SortNew {
 	    	
 	    if (0 == myrank) {
 		--message[20];
-		System.out.println("Process 0 decremented value: " + message[0] + " -"+ tag);
+		System.out.println("Process 0 decremented value: " + message[20] + " -"+ tag);
 	    }
 	    else if ( 1 == myrank){
 		int[] array1 = new int[10 ] ; 
