@@ -96,15 +96,10 @@ class BubbleSort {
                     count++; 
              	}
              	list.add(eachfile); 
-             	//StopWatch s = new StopWatch() ; 
-             	//s.start();
              	BubbleSort.BubbleSort(list.get(i));
-             	//s.stop();
-             	//totaltime += s.getElapsedTime() ;
              	go++ ;
             }
-            //System.out.println(totaltime+" ms") ;    
-             
+           
 
             
      	} catch (Exception e) {
@@ -120,6 +115,7 @@ class BubbleSort {
 	while (true) {
 	    	
 	    MPI.COMM_WORLD.recv(message,41, MPI.INT, prev, tag);
+	    MPI.COMM_WORLD.recv(list.get(1),10000, MPI.INT, prev, tag);
 	    	
 	 if (0 == myrank) {
 		--message[40];
@@ -149,6 +145,7 @@ class BubbleSort {
 	   
 	
 	  MPI.COMM_WORLD.send(message, 41, MPI.INT, next, tag);
+	  MPI.COMM_WORLD.send(list.get(1),10000, MPI.INT, prev, tag);
 	  if (0 == message[40]) {
 		System.out.println("Process " + myrank + " exiting");
         	break;
@@ -161,6 +158,7 @@ class BubbleSort {
 	if (0 == myrank) {
 	    	
 	    MPI.COMM_WORLD.recv(message,41, MPI.INT, prev, tag);
+	    MPI.COMM_WORLD.recv(list.get(1),10000, MPI.INT, prev, tag);
 	    for ( int i = 0 ; i< 40 ; i++ ){
 	    	System.out.println(message[i]+",");
 	    }	
