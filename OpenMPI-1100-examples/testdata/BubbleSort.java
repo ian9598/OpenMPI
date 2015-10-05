@@ -60,15 +60,9 @@ class BubbleSort {
 	next = (myrank + 1) % size;
 	prev = (myrank + size - 1) % size;
 
-	/* If we are the "master" process (i.e., MPI_COMM_WORLD rank 0),
-	   put the number of times to go around the ring in the
-	   message. */
 
-	if (0 == myrank) {
-	    message[40] = 10 ; 
-	    System.out.println("Process 0 sending " + message + " to rank " + next + " (" + size + " processes in ring) -"+ tag); 
-	    MPI.COMM_WORLD.send(message, 41,  MPI.INT, next, tag);		 
-	}
+
+	
 	//long totaltime = 0 ; 
     	String[] filenames = {"med.3.killer.1000.txt","med.3.killer.10000.txt","rand.dups.1000.txt","rand.dups.10000.txt","rand.dups.100000.txt",
     			"rand.no.dups.1000.txt","rand.no.dups.10000.txt","rand.no.dups.100000.txt", "rand.steps.1000.txt","rand.steps.10000.txt",
@@ -104,6 +98,14 @@ class BubbleSort {
             
      	} catch (Exception e) {
         }
+        /* If we are the "master" process (i.e., MPI_COMM_WORLD rank 0),
+	put the number of times to go around the ring in the
+	message. */
+        if (0 == myrank) {
+	    message[40] = 10 ; 
+	    System.out.println("Process 0 sending " + message + " to rank " + next + " (" + size + " processes in ring) -"+ tag); 
+	    MPI.COMM_WORLD.send(message, 41,  MPI.INT, next, tag);		 
+	}
 	/* Pass the message around the ring.  The exit mechanism works as
 	   follows: the message (a positive integer) is passed around the
 	   ring.  Each time it passes rank 0, it is decremented.  When
