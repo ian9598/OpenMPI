@@ -77,7 +77,7 @@ class BubbleSort {
     	int go = 0 ; 
     	try {
     	    for(int i = 0 ; i< 2 ; i++ ){ // 23 file 
-    		System.out.println(go);
+    		System.out.println(myrank +" - "+go);
     			
     		File file = new File(filenames[i]);
              	BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
