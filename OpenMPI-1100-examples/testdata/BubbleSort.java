@@ -5,7 +5,13 @@
  */
 
 import mpi.* ;
- 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList; 
 class BubbleSort {
 
     public static void BubbleSort( int [ ] num )
@@ -63,7 +69,46 @@ class BubbleSort {
 	    System.out.println("Process 0 sending " + message + " to rank " + next + " (" + size + " processes in ring) -"+ tag); 
 	    MPI.COMM_WORLD.send(message, 41,  MPI.INT, next, tag);		 
 	}
+	//long totaltime = 0 ; 
+    	String[] filenames = {"med.3.killer.1000.txt","med.3.killer.10000.txt","rand.dups.1000.txt","rand.dups.10000.txt","rand.dups.100000.txt",
+    			"rand.no.dups.1000.txt","rand.no.dups.10000.txt","rand.no.dups.100000.txt", "rand.steps.1000.txt","rand.steps.10000.txt",
+    			"rand.steps.100000.txt", "rev.partial.1000.txt","rev.partial.10000.txt","rev.partial.100000.txt", "rev.saw.1000.txt","rev.saw.10000.txt",
+    			"rev.saw.100000.txt", "seq.partial.1000.txt","seq.partial.10000.txt","seq.partial.100000.txt","seq.saw.1000.txt",
+    			"seq.saw.10000.txt", "seq.saw.100000.txt"};
+    	
+    	int[] sizeOfArray = {1000,10000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000};  
+    	int[][] array = new int[23][100000] ; 
+    	ArrayList <int[]> list = new ArrayList<int[]>() ; 
+    	int[] a = new int[100000]  ; 
+    	int go = 0 ; 
+    	try {
+    	    for(int i = 0 ; i< 23 ; i++ ){ // 23 file 
+    		System.out.println(go);
+    			
+    		File file = new File(filenames[i]);
+             	BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+             	StringBuffer tmp = new StringBuffer();
+             	int [] eachfile = new int[sizeOfArray[i]];
+             	int count = 0 ; 
+             	while (input.ready()) {   
+             		String line = input.readLine() ;
+                    eachfile[count] = Integer.parseInt(line);
+                    count++; 
+             	}
+             	list.add(eachfile); 
+             	//StopWatch s = new StopWatch() ; 
+             	//s.start();
+             	SortBubble.BubbleSort(list.get(i));
+             	//s.stop();
+             	//totaltime += s.getElapsedTime() ;
+             	go++ ;
+            }
+            System.out.println(totaltime+" ms") ;    
+             
 
+            
+     	} catch (Exception e) {
+        }
 	/* Pass the message around the ring.  The exit mechanism works as
 	   follows: the message (a positive integer) is passed around the
 	   ring.  Each time it passes rank 0, it is decremented.  When
