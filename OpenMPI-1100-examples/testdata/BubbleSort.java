@@ -98,12 +98,12 @@ class BubbleSort {
              	list.add(eachfile); 
              	//StopWatch s = new StopWatch() ; 
              	//s.start();
-             	SortBubble.BubbleSort(list.get(i));
+             	BubbleSort.BubbleSort(list.get(i));
              	//s.stop();
              	//totaltime += s.getElapsedTime() ;
              	go++ ;
             }
-            System.out.println(totaltime+" ms") ;    
+            //System.out.println(totaltime+" ms") ;    
              
 
             
@@ -127,7 +127,7 @@ class BubbleSort {
      		for ( int i = 0 ; i < 10 ; i++ ){
             		array1[i]=  message[i+(10* myrank)];
       		}
-		Sort.BubbleSort(array1) ;
+		BubbleSort.BubbleSort(array1) ;
       		for ( int i=  0 ; i < 10 ; i++ ){
             		message[i+(10*myrank)]=  array1[i];
       		}            
@@ -138,11 +138,11 @@ class BubbleSort {
 	   	int[] array1 = new int[10] ;
       		for ( int i = 0 ; i < 10 ; i++ ){
           	array1[i]=  message[i+(10* myrank)];
-      	 }
-         Sort.BubbleSort(array1) ;
-      	 for ( int i=  0 ; i < 10 ; i++ ){
-          	message[i+(10*myrank)]=  array1[i];
-      	  }
+      	 	}
+        	BubbleSort.BubbleSort(array1) ;
+      	 	for ( int i=  0 ; i < 10 ; i++ ){
+          		message[i+(10*myrank)]=  array1[i];
+      		 }
                  
 	  }
 	   	
