@@ -47,8 +47,9 @@ class BubbleSort {
 	int tag=50;  // Tag for messages	
 	int next;
 	int prev;
-	//int message[]	 = {2, 3, 4, 12, 11, 1, 99,87,98,99, 999,165,433,423, 989, 423, 533, 660, 604, 776,999,165,433,423, 989, 423, 533, 660, 604, 776,1912, 1413, 1104, 1212, 1311, 1231, 1199,1487,1098,1099,3999,2165,1433,1423, 3989, 7423, 3533, 1660, 1604, 2776,10};
-	int message[] = {10 }; 
+	int message[]	 = {2, 3, 4, 12, 11, 1, 99,87,98,99, 999,165,433,423, 989, 423, 533, 660, 604, 776,999,165,433,423, 989, 423, 533, 660, 604, 776,1912, 1413, 1104, 1212, 1311, 1231, 1199,1487,1098,1099,3999,2165,1433,1423, 3989, 7423, 3533, 1660, 1604, 2776,10};
+
+
 	int myrank = MPI.COMM_WORLD.getRank() ;
 	int size = MPI.COMM_WORLD.getSize() ;
 
@@ -70,21 +71,28 @@ class BubbleSort {
     			"seq.saw.10000.txt", "seq.saw.100000.txt"};
     	
     	int[] sizeOfArray = {1000,10000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000};  
-    	
+    	int[][] array = new int[23][100000] ; 
+    	ArrayList <int[]> list = new ArrayList<int[]>() ; 
+    	int[] a = new int[100000]  ; 
+    	int go = 0 ; 
     	try {
-    	  
+    	    for(int i = 0 ; i< 2 ; i++ ){ // 23 file 
+    		System.out.println(myrank +" - "+go);
     			
-    		File file = new File(filenames[0]);
+    		File file = new File(filenames[i]);
              	BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
              	StringBuffer tmp = new StringBuffer();
-             	int [] array = new int[sizeOfArray[0]];
-             	//int count = 0 ; 
+             	int [] eachfile = new int[sizeOfArray[i]];
+             	int count = 0 ; 
              	while (input.ready()) {   
              		String line = input.readLine() ;
-                   
-                   // count++; 
+                    eachfile[count] = Integer.parseInt(line);
+                    count++; 
              	}
-             
+             	list.add(eachfile); 
+             	BubbleSort.BubbleSort(list.get(i));
+             	go++ ;
+            }
            
 
             
@@ -94,10 +102,10 @@ class BubbleSort {
 	put the number of times to go around the ring in the
 	message. */
         if (0 == myrank) {
-	    message[0] = 10 ; 
+	    message[40] = 10 ; 
 	    System.out.println("Process 0 sending " + message + " to rank " + next + " (" + size + " processes in ring) -"+ tag); 
-	    MPI.COMM_WORLD.send(message, 1,  MPI.INT, next, tag);		 
-	   // MPI.COMM_WORLD.send(list.get(0), 1000,  MPI.INT, next, tag);
+	    MPI.COMM_WORLD.send(message, 41,  MPI.INT, next, tag);		 
+	    MPI.COMM_WORLD.send(list.get(0), 1000,  MPI.INT, next, tag);
 	}
 	/* Pass the message around the ring.  The exit mechanism works as
 	   follows: the message (a positive integer) is passed around the
@@ -109,24 +117,23 @@ class BubbleSort {
 	
 	while (true) {
 	    	
-	    MPI.COMM_WORLD.recv(message,0, MPI.INT, prev, tag);
-	   // MPI.COMM_WORLD.recv(list.get(0),1000, MPI.INT, prev, tag);
+	    MPI.COMM_WORLD.recv(message,41, MPI.INT, prev, tag);
+	    MPI.COMM_WORLD.recv(list.get(0),1000, MPI.INT, prev, tag);
 	    	
 	 if (0 == myrank) {
-		--message[0];
+		--message[40];
 		 int[] array1 = new int[10] ;
-     	/*	for ( int i = 0 ; i < 10 ; i++ ){
+     		for ( int i = 0 ; i < 10 ; i++ ){
             		array1[i]=  message[i+(10* myrank)];
       		}
 		BubbleSort.BubbleSort(array1) ;
       		for ( int i=  0 ; i < 10 ; i++ ){
             		message[i+(10*myrank)]=  array1[i];
-      		}          */  
-		System.out.println("Process 0 decremented value: " + message[0] + " -"+ tag);
+      		}            
+		System.out.println("Process 0 decremented value: " + message[40] + " -"+ tag);
 	 }
 	 else {
 	   	System.out.println ( "Here" + myrank);
-		/*  
 	   	int[] array1 = new int[10] ;
       		for ( int i = 0 ; i < 10 ; i++ ){
           	array1[i]=  message[i+(10* myrank)];
@@ -135,15 +142,14 @@ class BubbleSort {
       	 	for ( int i=  0 ; i < 10 ; i++ ){
           		message[i+(10*myrank)]=  array1[i];
       		 }
-      		 */
                  
 	  }
 	   	
 	   
 	
-	  MPI.COMM_WORLD.send(message, 1, MPI.INT, next, tag);
-	//  MPI.COMM_WORLD.send(list.get(0),1000, MPI.INT, next, tag);
-	  if (0 == message[0]) {
+	  MPI.COMM_WORLD.send(message, 41, MPI.INT, next, tag);
+	  MPI.COMM_WORLD.send(list.get(0),1000, MPI.INT, next, tag);
+	  if (0 == message[40]) {
 		System.out.println("Process " + myrank + " exiting");
         	break;
 	   }
@@ -154,9 +160,11 @@ class BubbleSort {
 
 	if (0 == myrank) {
 	    	
-	    MPI.COMM_WORLD.recv(message,1, MPI.INT, prev, tag);
-	 //   MPI.COMM_WORLD.recv(list.get(0),1000, MPI.INT, prev, tag);
-	    	
+	    MPI.COMM_WORLD.recv(message,41, MPI.INT, prev, tag);
+	    MPI.COMM_WORLD.recv(list.get(0),1000, MPI.INT, prev, tag);
+	    for ( int i = 0 ; i< 40 ; i++ ){
+	    	System.out.println(message[i]+",");
+	    }	
 		
 	}
     
