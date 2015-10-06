@@ -82,7 +82,7 @@ class BubbleSort {
              	while (input.ready()) {   
              		String line = input.readLine() ;
                    
-                    count++; 
+                   // count++; 
              	}
              
            
