@@ -77,12 +77,12 @@ class BubbleSort {
     	//int go = 0 ; 
     	try {
     	  //  for(int i = 0 ; i< 2 ; i++ ){ // 23 file 
-    		System.out.println(myrank +" - "+go);
-    			
-    		File file = new File(filenames[i]);
+    		//System.out.println(myrank +" - "+go);
+    		int ia = 0 ; 	
+    		File file = new File(filenames[ia]);
              	BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
              	StringBuffer tmp = new StringBuffer();
-             	int [] eachfile = new int[sizeOfArray[i]];
+             	int [] eachfile = new int[sizeOfArray[ia]];
              	int count = 0 ; 
              	while (input.ready()) {   
              		String line = input.readLine() ;
@@ -90,7 +90,7 @@ class BubbleSort {
                     count++; 
              	}
              	//list.add(eachfile); 
-             	BubbleSort.BubbleSort(list.get(i));
+             	//BubbleSort.BubbleSort(list.get(i));
              	//go++ ;
            // }
            
