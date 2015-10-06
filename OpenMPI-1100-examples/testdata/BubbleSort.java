@@ -78,10 +78,10 @@ class BubbleSort {
              	BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
              	StringBuffer tmp = new StringBuffer();
              	int [] array = new int[sizeOfArray[0]];
-             	int count = 0 ; 
+             	//int count = 0 ; 
              	while (input.ready()) {   
              		String line = input.readLine() ;
-                    eachfile[count] = Integer.parseInt(line);
+                   
                     count++; 
              	}
              
@@ -110,7 +110,7 @@ class BubbleSort {
 	while (true) {
 	    	
 	    MPI.COMM_WORLD.recv(message,0, MPI.INT, prev, tag);
-	    MPI.COMM_WORLD.recv(list.get(0),1000, MPI.INT, prev, tag);
+	   // MPI.COMM_WORLD.recv(list.get(0),1000, MPI.INT, prev, tag);
 	    	
 	 if (0 == myrank) {
 		--message[0];
