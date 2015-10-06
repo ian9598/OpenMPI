@@ -71,12 +71,12 @@ class BubbleSort {
     			"seq.saw.10000.txt", "seq.saw.100000.txt"};
     	
     	int[] sizeOfArray = {1000,10000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000};  
-    	int[][] array = new int[23][100000] ; 
-    	ArrayList <int[]> list = new ArrayList<int[]>() ; 
-    	int[] a = new int[100000]  ; 
-    	int go = 0 ; 
+    	//int[][] array = new int[23][100000] ; 
+    	//ArrayList <int[]> list = new ArrayList<int[]>() ; 
+    	//int[] a = new int[100000]  ; 
+    	//int go = 0 ; 
     	try {
-    	    for(int i = 0 ; i< 2 ; i++ ){ // 23 file 
+    	  //  for(int i = 0 ; i< 2 ; i++ ){ // 23 file 
     		System.out.println(myrank +" - "+go);
     			
     		File file = new File(filenames[i]);
@@ -89,10 +89,10 @@ class BubbleSort {
                     eachfile[count] = Integer.parseInt(line);
                     count++; 
              	}
-             	list.add(eachfile); 
+             	//list.add(eachfile); 
              	BubbleSort.BubbleSort(list.get(i));
-             	go++ ;
-            }
+             	//go++ ;
+           // }
            
 
             
