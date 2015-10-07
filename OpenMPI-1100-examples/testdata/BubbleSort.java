@@ -52,6 +52,7 @@ class BubbleSort {
 	int [] eachfile = new int[filesize];
 	int myrank = MPI.COMM_WORLD.getRank() ;
 	int size = MPI.COMM_WORLD.getSize() ;
+	int c = 0 , c2 = 0 . c3 =0 , c4= 0 ; // count 
 	
 	/* Calculate the rank of the next process in the ring.  Use the
 	   modulus operator so that the last process "wraps around" to
@@ -90,6 +91,7 @@ class BubbleSort {
 	    System.out.println("Process 0 sending " + message + " to rank " + next + " (" + size + " processes in ring) -"+ tag); 
 	    MPI.COMM_WORLD.send(message, 41,  MPI.INT, next, tag);		 
 	    MPI.COMM_WORLD.send(eachfile, filesize,  MPI.INT, next, tag);
+	   
 	}
 	/* Pass the message around the ring.  The exit mechanism works as
 	   follows: the message (a positive integer) is passed around the
@@ -110,7 +112,7 @@ class BubbleSort {
 		int upperBound = (( filesize * 1)/4) -1 ; 
 		System.out.println("Process 0 decremented value: " + message[40] + " -"+ tag);
 		int[] gather = new int[filesize] ; 
-		int c = 0 ; // count 
+		
 		for ( int i = 0 ; i < filesize ;i++ ){
 			if(eachfile[i] >= lowerBound && eachfile[i] <=  upperBound ){
 				gather[c] = eachfile[i] ; 
@@ -122,6 +124,7 @@ class BubbleSort {
 			array[i] = gather[i] ; 
 		}
 		BubbleSort.BubbleSort(array); 
+		MPI.COMM_WORLD.send(array, c,  MPI.INT, 0, tag);
  	 }
 	 else {
 	   	System.out.println ( "Here" + myrank);
@@ -151,6 +154,7 @@ class BubbleSort {
 	if (0 == myrank) {
 	    	
 	    MPI.COMM_WORLD.recv(message,41, MPI.INT, prev, tag);
+	    MPI.COMM_WORLD.recv(array, c,  MPI.INT, 0, tag);
 	    MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
 	    for ( int i = 0 ; i< 40 ; i++ ){
 	    	System.out.println(message[i]+",");
