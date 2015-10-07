@@ -66,8 +66,12 @@ class BubbleSort {
     	
     	int[] sizeOfArray = {1000,10000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000};  
     	
-    	try {
-    	  
+    	
+        /* If we are the "master" process (i.e., MPI_COMM_WORLD rank 0),
+	put the number of times to go around the ring in the
+	message. */
+        if (0 == myrank) {
+            try {
     		int ia = 0 ; 	
     		File file = new File(filenames[ia]);
              	BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
@@ -75,22 +79,15 @@ class BubbleSort {
              	int [] eachfile = new int[sizeOfArray[ia]];
              	int count = 0 ; 
              	while (input.ready()) {   
-             		String line = input.readLine() ;
+             	    String line = input.readLine() ;
                     eachfile[count] = Integer.parseInt(line);
                     count++; 
              	}
-
-            
-     	} catch (Exception e) {
-        }
-        /* If we are the "master" process (i.e., MPI_COMM_WORLD rank 0),
-	put the number of times to go around the ring in the
-	message. */
-        if (0 == myrank) {
+     	    } catch (Exception e) {        }	
 	    message[40] = 1 ; 
 	    System.out.println("Process 0 sending " + message + " to rank " + next + " (" + size + " processes in ring) -"+ tag); 
 	    MPI.COMM_WORLD.send(message, 41,  MPI.INT, next, tag);		 
-	 //   MPI.COMM_WORLD.send(list.get(0), 1000,  MPI.INT, next, tag);
+	    MPI.COMM_WORLD.send(eachfile, count,  MPI.INT, next, tag);
 	}
 	/* Pass the message around the ring.  The exit mechanism works as
 	   follows: the message (a positive integer) is passed around the
@@ -103,6 +100,7 @@ class BubbleSort {
 	while (true) {
 	    	
 	    MPI.COMM_WORLD.recv(message,41, MPI.INT, prev, tag);
+	    MPI.COMM_WORLD.recv(eachfile, count,  MPI.INT, next, tag);
 	    	
 	 if (0 == myrank) {
 		--message[40];
@@ -131,6 +129,7 @@ class BubbleSort {
 	   	
 	  
 	  MPI.COMM_WORLD.send(message, 41, MPI.INT, next, tag);
+	  MPI.COMM_WORLD.send(eachfile, count,  MPI.INT, next, tag);
 	  if (0 == message[40]) {
 		System.out.println("Process " + myrank + " exiting");
         	break;
@@ -143,6 +142,7 @@ class BubbleSort {
 	if (0 == myrank) {
 	    	
 	    MPI.COMM_WORLD.recv(message,41, MPI.INT, prev, tag);
+	    MPI.COMM_WORLD.recv(eachfile, count,  MPI.INT, next, tag);
 	    for ( int i = 0 ; i< 40 ; i++ ){
 	    	System.out.println(message[i]+",");
 	    }	
