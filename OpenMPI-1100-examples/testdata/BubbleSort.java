@@ -128,6 +128,7 @@ class BubbleSort {
 			array[i] = gather[i] ; 
 		}
 		BubbleSort.BubbleSort(array); 
+		System.out.print ( "length here "+ c);
 		MPI.COMM_WORLD.send(array, c,  MPI.INT, 0, tag);
  	 }
 	 else {
@@ -159,6 +160,7 @@ class BubbleSort {
 	    	
 	    MPI.COMM_WORLD.recv(message,41, MPI.INT, prev, tag);
 	    MPI.COMM_WORLD.recv(array, array.length,  MPI.INT, 0, tag);
+	    System.out.print ( "length  "+ array.length);
 	    MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
 	    for ( int i = 0 ; i< 40 ; i++ ){
 	    	System.out.println(message[i]+",");
