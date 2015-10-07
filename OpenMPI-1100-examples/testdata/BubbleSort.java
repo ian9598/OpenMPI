@@ -76,7 +76,7 @@ class BubbleSort {
 	int [] array = new int[1000] ;
 	int [] array2 = new int[1000] ;
 	int [] array3= new int[1000] ;
-	int [] array4 = new int[1000] ;
+	int [] array1 = new int[1000] ;
 	
 	/* Calculate the rank of the next process in the ring.  Use the
 	   modulus operator so that the last process "wraps around" to
