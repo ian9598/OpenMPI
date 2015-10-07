@@ -162,6 +162,18 @@ class BubbleSort {
 		int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)	
 		//int[] gather = new int[filesize] ; 
 		c = 0 ; 
+		if (myrank ==1){
+		array1 = new int[filesize ]; 
+		for ( int i = 0 ; i < filesize ;i++ ){
+			if(eachfile[i] >= lowerBound && eachfile[i] <=  upperBound ){
+				array1[c] = eachfile[i] ; 
+				c++ ; 
+			}
+		}
+		System.out.println ("++++++++");
+		BubbleSort.BubbleSort(array1 , c ); 
+		MPI.COMM_WORLD.send(array1, array1.length,  MPI.INT, 0, tag);
+		}else if (myrank ==2){
 		array2 = new int[filesize ]; 
 		for ( int i = 0 ; i < filesize ;i++ ){
 			if(eachfile[i] >= lowerBound && eachfile[i] <=  upperBound ){
@@ -170,12 +182,20 @@ class BubbleSort {
 			}
 		}
 		System.out.println ("++++++++");
-		
 		BubbleSort.BubbleSort(array2 , c ); 
-	/*	for( int i = 0 ; i< c ; i++){
-			System.out.println ("- "+ array2[i] +" "+ i+ " "+c +" "+array2.length);
-		}*/
 		MPI.COMM_WORLD.send(array2, array2.length,  MPI.INT, 0, tag);
+		}else if (myrank ==3){
+		array3 = new int[filesize ]; 
+		for ( int i = 0 ; i < filesize ;i++ ){
+			if(eachfile[i] >= lowerBound && eachfile[i] <=  upperBound ){
+				array3[c] = eachfile[i] ; 
+				c++ ; 
+			}
+		}
+		System.out.println ("++++++++");
+		BubbleSort.BubbleSort(array3 , c ); 
+		MPI.COMM_WORLD.send(array3, array3.length,  MPI.INT, 0, tag);
+		}
                  
 	  }
 	   	
@@ -196,9 +216,9 @@ class BubbleSort {
 	    MPI.COMM_WORLD.recv(message,41, MPI.INT, prev, tag);
 	    MPI.COMM_WORLD.recv(array, array.length,  MPI.INT, 0 , tag);
 	    System.out.print ( "length  ( "+ array.length +" )");
-	    MPI.COMM_WORLD.recv(array2, array2.length,  MPI.INT, 1, tag);
+	    MPI.COMM_WORLD.recv(array1, array1.length,  MPI.INT, 1, tag);
 	    MPI.COMM_WORLD.recv(array2, array2.length,  MPI.INT, 2, tag);
-	    MPI.COMM_WORLD.recv(array2, array2.length,  MPI.INT, 3, tag);
+	    MPI.COMM_WORLD.recv(array3, array3.length,  MPI.INT, 3, tag);
 	    for ( int i = 0 ; i< array2.length ; i++ ){
 	    	System.out.println(array2[i]+", " + i + " "+ array2.length );
 	    }	
