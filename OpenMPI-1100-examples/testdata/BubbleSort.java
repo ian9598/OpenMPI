@@ -73,10 +73,10 @@ class BubbleSort {
 	int myrank = MPI.COMM_WORLD.getRank() ;
 	int size = MPI.COMM_WORLD.getSize() ;
 	int c = 0 , c2 = 0 , c3 =0 , c4= 0 ; // count 
-	int [] array = new int[1000] ;
-	int [] array2 = new int[1000] ;
-	int [] array3= new int[1000] ;
-	int [] array1 = new int[1000] ;
+	int [] array = new int[300] ;
+	int [] array2 = new int[300] ;
+	int [] array3= new int[300] ;
+	int [] array1 = new int[300] ;
 	
 	/* Calculate the rank of the next process in the ring.  Use the
 	   modulus operator so that the last process "wraps around" to
@@ -211,7 +211,7 @@ class BubbleSort {
 		}
 		System.out.println ("++++++++");
 		BubbleSort.BubbleSort(array3 , c ); 
-		MPI.COMM_WORLD.send(array3, 1000,  MPI.INT, 0, tag);
+		MPI.COMM_WORLD.send(array3, array3.length,  MPI.INT, 0, tag);
 	}
                 
 	  
@@ -237,7 +237,7 @@ class BubbleSort {
 	    System.out.print ( "length  ( "+ array.length +" )");
 	    MPI.COMM_WORLD.recv(array1, array1.length,  MPI.INT, 1, tag);
 	    MPI.COMM_WORLD.recv(array2, array2.length,  MPI.INT, 2, tag);
-	    MPI.COMM_WORLD.recv(array3, 1000,  MPI.INT, 3, tag);
+	    MPI.COMM_WORLD.recv(array3, array3.length,  MPI.INT, 3, tag);
 	    for ( int i = 0 ; i< array3.length ; i++ ){
 	    	System.out.println(array3[i]+", " + i + " "+ array3.length );
 	    }	
