@@ -235,9 +235,9 @@ class BubbleSort {
 	    MPI.COMM_WORLD.recv(array1, array1.length,  MPI.INT, 1, tag);
 	   // MPI.COMM_WORLD.recv(array2, array2.length,  MPI.INT, 2, tag);
 	   // MPI.COMM_WORLD.recv(array3, array3.length,  MPI.INT, 3, tag);
-	   /* for ( int i = 0 ; i< array2.length ; i++ ){
-	    	System.out.println(array2[i]+", " + i + " "+ array2.length );
-	    }*/	
+	    for ( int i = 0 ; i< array1.length ; i++ ){
+	    	System.out.println(array1[i]+", " + i + " "+ array1.length );
+	    }	
 	   
 
 		
