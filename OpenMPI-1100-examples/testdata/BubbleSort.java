@@ -162,7 +162,7 @@ class BubbleSort {
 		int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)	
 		//int[] gather = new int[filesize] ; 
 		c = 0 ; 
-		array2 = new array2[filesize ]; 
+		array2 = new int[filesize ]; 
 		for ( int i = 0 ; i < filesize ;i++ ){
 			if(eachfile[i] >= lowerBound && eachfile[i] <=  upperBound ){
 				array2[c] = eachfile[i] ; 
