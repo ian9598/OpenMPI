@@ -197,7 +197,7 @@ class BubbleSort {
 	}*/else if (myrank ==3){System.out.println("EEEEEEEEEEEEEEE"); 
 		int boundSize  = (filesize/size ) ; 
 		int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
-		int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)	
+		int upperBound = (boundSize * (myrank+1))   ;  // ( 0.25*1)	
 		//int[] gather = new int[filesize] ; 
 		c = 0 ; 
 		array3 = new int[filesize ]; 
