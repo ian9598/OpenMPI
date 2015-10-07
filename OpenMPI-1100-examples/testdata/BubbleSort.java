@@ -209,9 +209,9 @@ class BubbleSort {
 		System.out.println ("++++++++");
 		BubbleSort.BubbleSort(array3 , c ); 
 		MPI.COMM_WORLD.send(array3, array3.length,  MPI.INT, 0, tag);
-		}
+	}
                 
-	  }
+	  
 	  MPI.COMM_WORLD.send(message, 41, MPI.INT, next, tag);
 	  MPI.COMM_WORLD.send(eachfile, filesize,  MPI.INT, next, tag);  	
 	  
@@ -220,6 +220,7 @@ class BubbleSort {
 		System.out.println("Process " + myrank + " exiting");
         	break;
 	   }
+	   
 	}
 
 	/* The last process does one extra send to process 0, which needs
