@@ -139,7 +139,7 @@ class BubbleSort {
 	//	int lowerBound = 0 ; int upperBound = 249 ; 
 		System.out.println("Process 0 decremented value: " + message[40] + " -"+ tag);
 		int[] gather = new int[filesize] ; 
-		
+		c = 0 ;
 		for ( int i = 0 ; i < filesize ;i++ ){
 			if(eachfile[i] >= lowerBound && eachfile[i] <=  upperBound ){
 				gather[c] = eachfile[i] ; 
@@ -161,7 +161,7 @@ class BubbleSort {
 		int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
 		int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)	
 		//int[] gather = new int[filesize] ; 
-		
+		c = 0 ; 
 		for ( int i = 0 ; i < filesize ;i++ ){
 			if(eachfile[i] >= lowerBound && eachfile[i] <=  upperBound ){
 				array2[c] = eachfile[i] ; 
@@ -169,7 +169,7 @@ class BubbleSort {
 			}
 		}
 		for( int i = 0 ; i< c ; i++){
-			System.out.println ( array2[i]);
+			System.out.println ("- "+ array2[i]);
 		}
 		BubbleSort.BubbleSort(array2 , c ); 
 		MPI.COMM_WORLD.send(array2, c,  MPI.INT, 0, tag);
