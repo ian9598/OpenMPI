@@ -113,6 +113,10 @@ class BubbleSort {
 	 if (0 == myrank) {
 		--message[40];
 		System.out.println ( "Here" + myrank);
+	   
+		
+ 	 }
+	 else if(myrank ==1 ){
 	   	int boundSize  = (filesize/size ) ; 
 		int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
 		int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)
@@ -132,11 +136,7 @@ class BubbleSort {
 		}
 		BubbleSort.BubbleSort(array); 
 		System.out.print ( "length here ( "+ c+" )");
-		MPI.COMM_WORLD.send(array, c,  MPI.INT, 0, tag);
-		
- 	 }
-	 else if(myrank ==1 ){
-	   	
+		MPI.COMM_WORLD.send(array, c,  MPI.INT, 0, tag);	
                  
 	  }
 	   	
