@@ -129,8 +129,7 @@ class BubbleSort {
 	    	
 	    MPI.COMM_WORLD.recv(message,41, MPI.INT, prev, tag);
 	    MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
-	    MPI.COMM_WORLD.send(message, 41, MPI.INT, next, tag);
-	    MPI.COMM_WORLD.send(eachfile, filesize,  MPI.INT, next, tag);
+	    
 	    System.out.println( myrank +" COUNT : "+ count );	
 	 if (0 == myrank) {
 		--message[40];
@@ -158,13 +157,13 @@ class BubbleSort {
 		MPI.COMM_WORLD.send(array, c,  MPI.INT, 0, tag);
 		
  	 }
-	 else  {
+	 else  if (myrank ==1 ){
 	   	int boundSize  = (filesize/size ) ; 
 		int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
 		int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)	
 		//int[] gather = new int[filesize] ; 
 		c = 0 ; 
-		if (myrank ==1){
+		
 		array1 = new int[filesize ]; 
 		for ( int i = 0 ; i < filesize ;i++ ){
 			if(eachfile[i] >= lowerBound && eachfile[i] <=  upperBound ){
@@ -175,7 +174,15 @@ class BubbleSort {
 		System.out.println ("++++++++");
 		BubbleSort.BubbleSort(array1 , c ); 
 		MPI.COMM_WORLD.send(array1, array1.length,  MPI.INT, 0, tag);
-		}else if (myrank ==2){
+		
+	 }	
+		
+	else if (myrank ==2){
+		int boundSize  = (filesize/size ) ; 
+		int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
+		int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)	
+		//int[] gather = new int[filesize] ; 
+		c = 0 ; 
 		array2 = new int[filesize ]; 
 		for ( int i = 0 ; i < filesize ;i++ ){
 			if(eachfile[i] >= lowerBound && eachfile[i] <=  upperBound ){
@@ -186,7 +193,12 @@ class BubbleSort {
 		System.out.println ("++++++++");
 		BubbleSort.BubbleSort(array2 , c ); 
 		MPI.COMM_WORLD.send(array2, array2.length,  MPI.INT, 0, tag);
-		}else if (myrank ==3){
+	}else if (myrank ==3){
+		int boundSize  = (filesize/size ) ; 
+		int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
+		int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)	
+		//int[] gather = new int[filesize] ; 
+		c = 0 ; 
 		array3 = new int[filesize ]; 
 		for ( int i = 0 ; i < filesize ;i++ ){
 			if(eachfile[i] >= lowerBound && eachfile[i] <=  upperBound ){
@@ -198,9 +210,10 @@ class BubbleSort {
 		BubbleSort.BubbleSort(array3 , c ); 
 		MPI.COMM_WORLD.send(array3, array3.length,  MPI.INT, 0, tag);
 		}
-                 
+                
 	  }
-	   	
+	  MPI.COMM_WORLD.send(message, 41, MPI.INT, next, tag);
+	  MPI.COMM_WORLD.send(eachfile, filesize,  MPI.INT, next, tag);  	
 	  
 	  
 	  if (0 == message[40]) {
