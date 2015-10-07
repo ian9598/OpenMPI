@@ -176,7 +176,7 @@ class BubbleSort {
 		MPI.COMM_WORLD.send(array1, array1.length,  MPI.INT, 0, tag);
 		
 	 }	
-		
+	/*	
 	else if (myrank ==2){
 		int boundSize  = (filesize/size ) ; 
 		int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
@@ -210,7 +210,7 @@ class BubbleSort {
 		BubbleSort.BubbleSort(array3 , c ); 
 		MPI.COMM_WORLD.send(array3, array3.length,  MPI.INT, 0, tag);
 	}
-                
+       */         
 	  
 	  MPI.COMM_WORLD.send(message, 41, MPI.INT, next, tag);
 	  MPI.COMM_WORLD.send(eachfile, filesize,  MPI.INT, next, tag);  	
@@ -233,11 +233,11 @@ class BubbleSort {
 	    MPI.COMM_WORLD.recv(array, array.length,  MPI.INT, 0 , tag);
 	    System.out.print ( "length  ( "+ array.length +" )");
 	    MPI.COMM_WORLD.recv(array1, array1.length,  MPI.INT, 1, tag);
-	    MPI.COMM_WORLD.recv(array2, array2.length,  MPI.INT, 2, tag);
-	    MPI.COMM_WORLD.recv(array3, array3.length,  MPI.INT, 3, tag);
-	    for ( int i = 0 ; i< array2.length ; i++ ){
+	   // MPI.COMM_WORLD.recv(array2, array2.length,  MPI.INT, 2, tag);
+	   // MPI.COMM_WORLD.recv(array3, array3.length,  MPI.INT, 3, tag);
+	   /* for ( int i = 0 ; i< array2.length ; i++ ){
 	    	System.out.println(array2[i]+", " + i + " "+ array2.length );
-	    }	
+	    }*/	
 	   
 
 		
