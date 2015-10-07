@@ -168,7 +168,7 @@ class BubbleSort {
 				c++ ; 
 			}
 		}
-		system.out.println ("++++++++");
+		System.out.println ("++++++++");
 		for( int i = 0 ; i< c ; i++){
 			System.out.println ("- "+ array2[i] + " "+c +" "+array2.length);
 		}
