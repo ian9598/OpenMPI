@@ -117,7 +117,7 @@ class BubbleSort {
 				c++ ; 
 			}
 		}
-		int array = new int [c] ; 
+		int[] array = new int [c] ; 
 		for ( int i = 0 ; i< c ; i++ ){
 			array[i] = c[i] ; 
 		}
