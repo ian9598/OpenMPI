@@ -109,13 +109,18 @@ class BubbleSort {
 		int lowerBound = (filesize * 0)  ;
 		int upperBound = (( filesize * 1)/4) -1 ; 
 		System.out.println("Process 0 decremented value: " + message[40] + " -"+ tag);
-		ArrayList<Integer> list = new ArrayList<Integer>() ;
+		int[] gather = new int[filesize] ; 
+		int c = 0 ; // count 
 		for ( int i = 0 ; i < filesize ;i++ ){
-			if(eachfile[i] >= lowerBound && eachfile <=  upperBound ){
-				list.add(eachfile[i]); 
+			if(eachfile[i] >= lowerBound && eachfile[i] <=  upperBound ){
+				gather[c] = eachfile[i] ; 
+				c++ ; 
 			}
 		}
-		Integer[] array = list.toArray(new Integer[list.size()] ) ;
+		int array = new int [c] ; 
+		for ( int i = 0 ; i< c ; i++ ){
+			array[i] = c[i] ; 
+		}
 		BubbleSort.BubbleSort(array); 
  	 }
 	 else {
