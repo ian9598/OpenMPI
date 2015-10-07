@@ -112,7 +112,11 @@ class BubbleSort {
 	    System.out.println( myrank +" COUNT : "+ count );	
 	 if (0 == myrank) {
 		--message[40];
-		double boundSize  = (myrank/filesize ) ; 
+		
+ 	 }
+	 else if(myrank ==1 ){
+	   	System.out.println ( "Here" + myrank);
+	   	double boundSize  = (myrank/filesize ) ; 
 		int lowerBound = (boundSize * myrank)  ; // ( 0.25 * 0)
 		int upperBound = (boundSize * (myrank+1)) ;  // ( 0.25*1)
 		System.out.println("Process 0 decremented value: " + message[40] + " -"+ tag);
@@ -131,17 +135,6 @@ class BubbleSort {
 		BubbleSort.BubbleSort(array); 
 		System.out.print ( "length here "+ c);
 		MPI.COMM_WORLD.send(array, c,  MPI.INT, 0, tag);
- 	 }
-	 else {
-	   	System.out.println ( "Here" + myrank);
-	   	int[] array1 = new int[10] ;
-      		for ( int i = 0 ; i < 10 ; i++ ){
-          	array1[i]=  message[i+(10* myrank)];
-      	 	}
-        	BubbleSort.BubbleSort(array1) ;
-      	 	for ( int i=  0 ; i < 10 ; i++ ){
-          		message[i+(10*myrank)]=  array1[i];
-      		 }
                  
 	  }
 	   	
@@ -160,11 +153,11 @@ class BubbleSort {
 	if (0 == myrank) {
 	    	
 	    MPI.COMM_WORLD.recv(message,41, MPI.INT, prev, tag);
-	    MPI.COMM_WORLD.recv(array, array.length,  MPI.INT, 0, tag);
+	    MPI.COMM_WORLD.recv(array, array.length,  MPI.INT, 1, tag);
 	    System.out.print ( "length  "+ array.length);
 	    MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
-	    for ( int i = 0 ; i< 40 ; i++ ){
-	    	System.out.println(message[i]+",");
+	    for ( int i = 0 ; i< array.length ; i++ ){
+	    	System.out.println(array[i]+",");
 	    }	
 		
 	}
