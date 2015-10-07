@@ -52,7 +52,11 @@ class BubbleSort {
 	int [] eachfile = new int[filesize];
 	int myrank = MPI.COMM_WORLD.getRank() ;
 	int size = MPI.COMM_WORLD.getSize() ;
-	int c = 0 , c2 = 0 . c3 =0 , c4= 0 ; // count 
+	int c = 0 , c2 = 0 , c3 =0 , c4= 0 ; // count 
+	int [] array = new int[1000] ;
+	int [] array2 = new int[1000] ;
+	int [] array3= new int[1000] ;
+	int [] array4 = new int[1000] ;
 	
 	/* Calculate the rank of the next process in the ring.  Use the
 	   modulus operator so that the last process "wraps around" to
@@ -119,7 +123,7 @@ class BubbleSort {
 				c++ ; 
 			}
 		}
-		int[] array = new int [c] ; 
+		array = new int [c] ; 
 		for ( int i = 0 ; i< c ; i++ ){
 			array[i] = gather[i] ; 
 		}
@@ -154,7 +158,7 @@ class BubbleSort {
 	if (0 == myrank) {
 	    	
 	    MPI.COMM_WORLD.recv(message,41, MPI.INT, prev, tag);
-	    MPI.COMM_WORLD.recv(array, c,  MPI.INT, 0, tag);
+	    MPI.COMM_WORLD.recv(array, array.length,  MPI.INT, 0, tag);
 	    MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
 	    for ( int i = 0 ; i< 40 ; i++ ){
 	    	System.out.println(message[i]+",");
