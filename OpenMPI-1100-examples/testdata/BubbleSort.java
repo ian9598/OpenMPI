@@ -77,6 +77,7 @@ class BubbleSort {
 	int [] array2 = new int[1000] ;
 	int [] array3= new int[1000] ;
 	int [] array1 = new int[1000] ;
+		int [] empty = new int[1000] ;
 	
 	/* Calculate the rank of the next process in the ring.  Use the
 	   modulus operator so that the last process "wraps around" to
@@ -210,7 +211,8 @@ class BubbleSort {
 			System.out.println(array3[i]+" " + c);
 		}
 		System.out.println ("++++++++");
-		BubbleSort.BubbleSort(array3 , c ); 
+		BubbleSort.BubbleSort(array3 , c );
+		MPI.COMM_WORLD.send(empty, empty.length,  MPI.INT, 0, tag);
 	//	MPI.COMM_WORLD.send(array3, array3.length,  MPI.INT, 0, tag);
 	}
                 
