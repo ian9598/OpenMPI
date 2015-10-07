@@ -168,8 +168,9 @@ class BubbleSort {
 				c++ ; 
 			}
 		}
+		system.out.println ("++++++++");
 		for( int i = 0 ; i< c ; i++){
-			System.out.println ("- "+ array2[i]);
+			System.out.println ("- "+ array2[i] + " "+c +" "+array2.length);
 		}
 		BubbleSort.BubbleSort(array2 , c ); 
 		MPI.COMM_WORLD.send(array2, c,  MPI.INT, 0, tag);
