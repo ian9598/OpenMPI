@@ -171,9 +171,9 @@ class BubbleSort {
 		System.out.println ("++++++++");
 		
 		BubbleSort.BubbleSort(array2 , c ); 
-		for( int i = 0 ; i< c ; i++){
+	/*	for( int i = 0 ; i< c ; i++){
 			System.out.println ("- "+ array2[i] +" "+ i+ " "+c +" "+array2.length);
-		}
+		}*/
 		MPI.COMM_WORLD.send(array2, c,  MPI.INT, 0, tag);
                  
 	  }
@@ -198,9 +198,9 @@ class BubbleSort {
 	    MPI.COMM_WORLD.recv(array2, array2.length,  MPI.INT, 1, tag);
 	   // MPI.COMM_WORLD.recv(array2, array2.length,  MPI.INT, 2, tag);
 	    //MPI.COMM_WORLD.recv(array2, array2.length,  MPI.INT, 3, tag);
-	    //for ( int i = 0 ; i< array2.length ; i++ ){
-	    //	System.out.println(array2[i]+",");
-	    //}	
+	    for ( int i = 0 ; i< array2.length ; i++ ){
+	    	System.out.println(array2[i]+", " + i + " "+ array2.length );
+	    }	
 	    MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
 
 		
