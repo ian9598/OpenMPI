@@ -157,9 +157,9 @@ class BubbleSort {
 	    MPI.COMM_WORLD.recv(array, array.length,  MPI.INT, 1, tag);
 	    System.out.print ( "length  "+ array.length);
 	    MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
-	    for ( int i = 0 ; i< array.length ; i++ ){
-	    	System.out.println(array[i]+",");
-	    }	
+	 //   for ( int i = 0 ; i< array.length ; i++ ){
+	   // 	System.out.println(array[i]+",");
+	    //}	
 		
 	}
     
