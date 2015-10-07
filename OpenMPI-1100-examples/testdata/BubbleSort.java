@@ -113,9 +113,9 @@ class BubbleSort {
 	 if (0 == myrank) {
 		--message[40];
 		System.out.println ( "Here" + myrank);
-	   	double boundSize  = (size/filesize ) ; 
-		int lowerBound = (int)(boundSize * myrank) * filesize  ; // ( 0.25 * 0)
-		int upperBound = (int)(boundSize * (myrank+1) * filesize) ;  // ( 0.25*1)
+	   	int boundSize  = (filesize/size ) ; 
+		int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
+		int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)
 	//	int lowerBound = 0 ; int upperBound = 249 ; 
 		System.out.println("Process 0 decremented value: " + message[40] + " -"+ tag);
 		int[] gather = new int[filesize] ; 
