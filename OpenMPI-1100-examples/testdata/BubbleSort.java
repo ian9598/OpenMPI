@@ -174,7 +174,7 @@ class BubbleSort {
 	/*	for( int i = 0 ; i< c ; i++){
 			System.out.println ("- "+ array2[i] +" "+ i+ " "+c +" "+array2.length);
 		}*/
-		MPI.COMM_WORLD.send(array2, c,  MPI.INT, 0, tag);
+		MPI.COMM_WORLD.send(array2, array2.length,  MPI.INT, 0, tag);
                  
 	  }
 	   	
