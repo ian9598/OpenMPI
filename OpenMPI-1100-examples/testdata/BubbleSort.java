@@ -194,7 +194,7 @@ class BubbleSort {
 		BubbleSort.BubbleSort(array2 , c ); 
 		MPI.COMM_WORLD.send(array2, array2.length,  MPI.INT, 0, tag);
 	}else if (myrank ==3){System.out.println("EEEEEEEEEEEEEEE"); 
-/*		int boundSize  = (filesize/size ) ; 
+		int boundSize  = (filesize/size ) ; 
 		int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
 		int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)	
 		//int[] gather = new int[filesize] ; 
@@ -212,11 +212,11 @@ class BubbleSort {
 		System.out.println ("++++++++");
 		BubbleSort.BubbleSort(array3 , c ); 
 		MPI.COMM_WORLD.send(array3, array3.length,  MPI.INT, 0, tag);
-*/	}
+	}
                 
-	  
+	  if (myrank != 3){
 	  MPI.COMM_WORLD.send(message, 41, MPI.INT, next, tag);
-	  MPI.COMM_WORLD.send(eachfile, filesize,  MPI.INT, next, tag);  	
+	  MPI.COMM_WORLD.send(eachfile, filesize,  MPI.INT, next, tag);  	}
 	  
 	  
 	  if (0 == message[40]) {
