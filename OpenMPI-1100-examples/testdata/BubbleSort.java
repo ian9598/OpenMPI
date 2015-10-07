@@ -129,6 +129,8 @@ class BubbleSort {
 	    	
 	    MPI.COMM_WORLD.recv(message,41, MPI.INT, prev, tag);
 	    MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
+	    MPI.COMM_WORLD.send(message, 41, MPI.INT, next, tag);
+	    MPI.COMM_WORLD.send(eachfile, filesize,  MPI.INT, next, tag);
 	    System.out.println( myrank +" COUNT : "+ count );	
 	 if (0 == myrank) {
 		--message[40];
@@ -200,8 +202,7 @@ class BubbleSort {
 	  }
 	   	
 	  
-	  MPI.COMM_WORLD.send(message, 41, MPI.INT, next, tag);
-	  MPI.COMM_WORLD.send(eachfile, filesize,  MPI.INT, next, tag);
+	  
 	  if (0 == message[40]) {
 		System.out.println("Process " + myrank + " exiting");
         	break;
@@ -214,6 +215,7 @@ class BubbleSort {
 	if (0 == myrank) {
 	    	
 	    MPI.COMM_WORLD.recv(message,41, MPI.INT, prev, tag);
+	     MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
 	    MPI.COMM_WORLD.recv(array, array.length,  MPI.INT, 0 , tag);
 	    System.out.print ( "length  ( "+ array.length +" )");
 	    MPI.COMM_WORLD.recv(array1, array1.length,  MPI.INT, 1, tag);
@@ -222,7 +224,7 @@ class BubbleSort {
 	    for ( int i = 0 ; i< array2.length ; i++ ){
 	    	System.out.println(array2[i]+", " + i + " "+ array2.length );
 	    }	
-	    MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
+	   
 
 		
 	}
