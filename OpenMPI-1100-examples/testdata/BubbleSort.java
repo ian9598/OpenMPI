@@ -23,14 +23,12 @@ class BubbleSort {
      while ( flag )
      {
             flag= false;    //set flag to false awaiting a possible swap
-            for( j=0;  j < num.length -1;  j++ )
-            {
-                   if ( num[ j ] > num[j+1] )   // change to > for ascending sort
-                   {
-                           temp = num[ j ];                //swap elements
+            for( j=0;  j < num.length -1;  j++ ){
+                   if ( num[ j ] > num[j+1] ){  
+                           temp = num[ j ];                
                            num[ j ] = num[ j+1 ];
                            num[ j+1 ] = temp;
-                          flag = true;              //shows a swap occurred  
+                           flag = true;              
                   } 
             } 
       } 
@@ -59,11 +57,7 @@ class BubbleSort {
 
 	next = (myrank + 1) % size;
 	prev = (myrank + size - 1) % size;
-
-
-
 	
-	//long totaltime = 0 ; 
     	String[] filenames = {"med.3.killer.1000.txt","med.3.killer.10000.txt","rand.dups.1000.txt","rand.dups.10000.txt","rand.dups.100000.txt",
     			"rand.no.dups.1000.txt","rand.no.dups.10000.txt","rand.no.dups.100000.txt", "rand.steps.1000.txt","rand.steps.10000.txt",
     			"rand.steps.100000.txt", "rev.partial.1000.txt","rev.partial.10000.txt","rev.partial.100000.txt", "rev.saw.1000.txt","rev.saw.10000.txt",
@@ -71,13 +65,9 @@ class BubbleSort {
     			"seq.saw.10000.txt", "seq.saw.100000.txt"};
     	
     	int[] sizeOfArray = {1000,10000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000};  
-    	//int[][] array = new int[23][100000] ; 
-    	//ArrayList <int[]> list = new ArrayList<int[]>() ; 
-    	//int[] a = new int[100000]  ; 
-    	//int go = 0 ; 
+    	
     	try {
-    	  //  for(int i = 0 ; i< 2 ; i++ ){ // 23 file 
-    		//System.out.println(myrank +" - "+go);
+    	  
     		int ia = 0 ; 	
     		File file = new File(filenames[ia]);
              	BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
@@ -89,11 +79,6 @@ class BubbleSort {
                     eachfile[count] = Integer.parseInt(line);
                     count++; 
              	}
-             	//list.add(eachfile); 
-             	//BubbleSort.BubbleSort(list.get(i));
-             	//go++ ;
-           // }
-           
 
             
      	} catch (Exception e) {
@@ -102,7 +87,7 @@ class BubbleSort {
 	put the number of times to go around the ring in the
 	message. */
         if (0 == myrank) {
-	    message[40] = 10 ; 
+	    message[40] = 1 ; 
 	    System.out.println("Process 0 sending " + message + " to rank " + next + " (" + size + " processes in ring) -"+ tag); 
 	    MPI.COMM_WORLD.send(message, 41,  MPI.INT, next, tag);		 
 	 //   MPI.COMM_WORLD.send(list.get(0), 1000,  MPI.INT, next, tag);
@@ -118,7 +103,6 @@ class BubbleSort {
 	while (true) {
 	    	
 	    MPI.COMM_WORLD.recv(message,41, MPI.INT, prev, tag);
-	   // MPI.COMM_WORLD.recv(list.get(0),1000, MPI.INT, prev, tag);
 	    	
 	 if (0 == myrank) {
 		--message[40];
@@ -145,10 +129,8 @@ class BubbleSort {
                  
 	  }
 	   	
-	   
-	
+	  
 	  MPI.COMM_WORLD.send(message, 41, MPI.INT, next, tag);
-	//  MPI.COMM_WORLD.send(list.get(0),1000, MPI.INT, next, tag);
 	  if (0 == message[40]) {
 		System.out.println("Process " + myrank + " exiting");
         	break;
@@ -161,7 +143,6 @@ class BubbleSort {
 	if (0 == myrank) {
 	    	
 	    MPI.COMM_WORLD.recv(message,41, MPI.INT, prev, tag);
-	  //  MPI.COMM_WORLD.recv(list.get(0),1000, MPI.INT, prev, tag);
 	    for ( int i = 0 ; i< 40 ; i++ ){
 	    	System.out.println(message[i]+",");
 	    }	
