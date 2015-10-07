@@ -106,16 +106,18 @@ class BubbleSort {
 	    System.out.println( myrank +" COUNT : "+ count );	
 	 if (0 == myrank) {
 		--message[40];
-		 int[] array1 = new int[10] ;
-     		for ( int i = 0 ; i < 10 ; i++ ){
-            		array1[i]=  message[i+(10* myrank)];
-      		}
-		BubbleSort.BubbleSort(array1) ;
-      		for ( int i=  0 ; i < 10 ; i++ ){
-            		message[i+(10*myrank)]=  array1[i];
-      		}            
+		int lowerBound = (filesize * 0)  ;
+		int upperBound = (( filesize * 1)/4) -1 ; 
 		System.out.println("Process 0 decremented value: " + message[40] + " -"+ tag);
-	 }
+		ArrayList<Integer> list = new ArrayList<Integer>() ;
+		for ( int i = 0 ; i < filesize ;i++ ){
+			if(eachfile[i] >= lowerBound && eachfile <=  upperBound ){
+				list.add(eachfile[i]); 
+			}
+		}
+		Integer[] array = list.toArray(new Integer[list.size()] ) ;
+		BubbleSort.BubbleSort(array); 
+ 	 }
 	 else {
 	   	System.out.println ( "Here" + myrank);
 	   	int[] array1 = new int[10] ;
