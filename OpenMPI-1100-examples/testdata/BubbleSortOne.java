@@ -147,13 +147,13 @@ class BubbleSortONE {
 			}
 		}
 		BubbleSortONE.BubbleSort (gather, c ) ;
-		int count = 0 ; 
+		int count1 = 0 ; 
 		for ( int i = 0 ; i< filesize ; i++ ){
-		  if ( empty[i] == 0 && count < c) {
-		    empty[i] = gather[count] ; 
-		    count++ ; 
+		  if ( empty[i] == 0 && count1 < c) {
+		    empty[i] = gather[count1] ; 
+		    count1++ ; 
 		  }
-		  if(count == c ){ break ; }
+		  if(count1 == c ){ break ; }
 		}
 	
 		
@@ -178,13 +178,13 @@ class BubbleSortONE {
 			}
 		}
 		BubbleSortONE.BubbleSort (gather, c ) ;
-		int count = 0 ; 
+		int count1 = 0 ; 
 		for ( int i = 0 ; i< filesize ; i++ ){
-		  if ( empty[i] == 0 && count < c) {
-		    empty[i] = gather[count] ; 
-		    count++ ; 
+		  if ( empty[i] == 0 && count1 < c) {
+		    empty[i] = gather[count1] ; 
+		    count1++ ; 
 		  }
-		  if(count == c ){ break ; }
+		  if(count1 == c ){ break ; }
 		}
 	
 		
