@@ -147,6 +147,7 @@ class BubbleSortONE {
 			}
 		}
 		BubbleSortONE.BubbleSort (gather, c ) ;
+	/*
 		int count1 = 0 ; 
 		for ( int i = 0 ; i< filesize ; i++ ){
 		  if ( empty[i] == 0 && count1 < c) {
@@ -157,7 +158,7 @@ class BubbleSortONE {
 		  if(count1 == c ){ break ; }
 		}
 	
-		
+		*/
 		
  	 }	
 		
@@ -179,6 +180,7 @@ class BubbleSortONE {
 			}
 		}
 		BubbleSortONE.BubbleSort (gather, c ) ;
+		/*
 		int count1 = 0 ; 
 		for ( int i = 0 ; i< filesize ; i++ ){
 		  if ( empty[i] == 0 && count1 < c) {
@@ -188,7 +190,7 @@ class BubbleSortONE {
 		  }
 		  if(count1 == c ){ break ; }
 		}
-	
+	*/
 		
 	}
    
