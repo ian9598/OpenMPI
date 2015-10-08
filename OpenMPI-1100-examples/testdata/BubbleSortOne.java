@@ -164,7 +164,7 @@ class BubbleSortONE {
 		
 	else {System.out.println("EEEEEEEEEEEEEEE"); 
 	    
-		--message[40];
+
 		System.out.println ( "Here" + myrank);
 	  int boundSize  = (filesize/size ) ; 
 		int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
