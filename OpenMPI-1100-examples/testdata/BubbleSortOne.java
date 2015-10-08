@@ -74,6 +74,14 @@ class BubbleSortONE {
 	int size = MPI.COMM_WORLD.getSize() ;
 	int c = 0 , c2 = 0 , c3 =0 , c4= 0 ; // count 
 	int [] empty = new int[1000] ;
+	int [] empty1 = new int[1000] ;
+	int [] empty2 = new int[1000] ;
+	int [] empty3 = new int[1000] ;
+	ArrayList <int[]> list = new ArrayList<int[]>() ;
+	list.add (empty); 
+	list.add(empty1) ;
+	list.add(empty2);
+	list.add(empty3) ;
 	
 	/* Calculate the rank of the next process in the ring.  Use the
 	   modulus operator so that the last process "wraps around" to
@@ -112,7 +120,10 @@ class BubbleSortONE {
 	    System.out.println("Process 0 sending " + message + " to rank " + next + " (" + size + " processes in ring) -"+ tag); 
 	    MPI.COMM_WORLD.send(message, 41,  MPI.INT, next, tag);		 
 	    MPI.COMM_WORLD.send(eachfile, filesize,  MPI.INT, next, tag);
-	    MPI.COMM_WORLD.send(empty, filesize,  MPI.INT, next, tag);
+	    MPI.COMM_WORLD.send(list.get(0), filesize,  MPI.INT, next, tag);
+	    MPI.COMM_WORLD.send(list.get(1), filesize,  MPI.INT, next, tag);
+	    MPI.COMM_WORLD.send(list.get(2), filesize,  MPI.INT, next, tag);
+	    MPI.COMM_WORLD.send(list.get(3), filesize,  MPI.INT, next, tag);
 	   
 	}
 	/* Pass the message around the ring.  The exit mechanism works as
@@ -127,13 +138,16 @@ class BubbleSortONE {
 	    	
 	    MPI.COMM_WORLD.recv(message,41, MPI.INT, prev, tag);
 	    MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
-	    MPI.COMM_WORLD.recv(empty, filesize,  MPI.INT, prev, tag);
+	    MPI.COMM_WORLD.recv(list.get(0), filesize,  MPI.INT, prev, tag);
+	    MPI.COMM_WORLD.recv(list.get(1), filesize,  MPI.INT, prev, tag);
+	    MPI.COMM_WORLD.recv(list.get(2), filesize,  MPI.INT, prev, tag);
+	    MPI.COMM_WORLD.recv(list.get(3), filesize,  MPI.INT, prev, tag);
 	    
 	    System.out.println( myrank +" COUNT : "+ count );	
 	 if (0 == myrank) {
 		--message[40];
 		System.out.println ( "Here" + myrank);
-	  int boundSize  = (filesize/size ) ; 
+		int boundSize  = (filesize/size ) ; 
 		int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
 		int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)
 
@@ -150,23 +164,19 @@ class BubbleSortONE {
 	
 		int count1 = 0 ; 
 		for ( int i = 0 ; i< filesize ; i++ ){
-		  if ( empty[i] == 0 && count1 < c) {
-		    empty[i] = gather[count1] ; 
-		    System.out.println( myrank + " * "+ gather[count1] +" * "+ count ) ; 
-		    count1++ ; 
-		  }
-		  if(count1 == c ){ break ; }
+		   empty[i] = gather[count1] ; 
+		   System.out.println( myrank + " * "+ gather[count1] +" * "+ count ) ; 
+		   count1++ ; 
+		   if(count1 == c ){ break ; }
 		}
 	
 		
 		
  	 }	
 		
-	else {System.out.println("EEEEEEEEEEEEEEE"); 
-	    
-
+	else {	System.out.println("EEEEEEEEEEEEEEE"); 
 		System.out.println ( "Here" + myrank);
-	  int boundSize  = (filesize/size ) ; 
+		int boundSize  = (filesize/size ) ; 
 		int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
 		int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)
 
@@ -174,21 +184,21 @@ class BubbleSortONE {
 		int[] gather = new int[filesize] ; 
 		c = 0 ;
 		for ( int i = 0 ; i < filesize ;i++ ){
-			if(eachfile[i] >= lowerBound && eachfile[i] <=  upperBound ){
-				gather[c] = eachfile[i] ; 
-				c++ ; 
-			}
+		  if(eachfile[i] >= lowerBound && eachfile[i] <=  upperBound ){
+			gather[c] = eachfile[i] ; 
+			c++ ; 
+		  }
 		}
 		BubbleSortONE.BubbleSort (gather, c ) ;
 		
 		int count1 = 0 ; 
+		int []array = list.get(myrank) ; 
 		for ( int i = 0 ; i< filesize ; i++ ){
-		  if ( empty[i] == 0 && count1 < c) {
-		    empty[i] = gather[count1] ; 
-		    System.out.println( myrank + " * "+ gather[count1] +" * "+ count ) ; 
-		    count1++ ; 
-		  }
+		  array[i] = gather[count1] ; 
+		  System.out.println( myrank + " * "+ gather[count1] +" * "+ count ) ; 
+		  count1++ ; 
 		  if(count1 == c ){ break ; }
+		   
 		}
 	
 		
@@ -196,7 +206,10 @@ class BubbleSortONE {
    
 	  MPI.COMM_WORLD.send(message, 41, MPI.INT, next, tag);
 	  MPI.COMM_WORLD.send(eachfile, filesize,  MPI.INT, next, tag);
-	  MPI.COMM_WORLD.send(empty , filesize,  MPI.INT, next, tag);
+	  MPI.COMM_WORLD.send(list.get(0) , filesize,  MPI.INT, next, tag);
+	  MPI.COMM_WORLD.send(list.get(1) , filesize,  MPI.INT, next, tag);
+	  MPI.COMM_WORLD.send(list.get(2) , filesize,  MPI.INT, next, tag);
+	  MPI.COMM_WORLD.send(list.get(3) , filesize,  MPI.INT, next, tag);
 	  
 	  
 	  if (0 == message[40]) {
@@ -214,9 +227,14 @@ class BubbleSortONE {
 	    MPI.COMM_WORLD.recv(message,41, MPI.INT, prev, tag);
 	    MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
 	    MPI.COMM_WORLD.recv(empty, filesize,  MPI.INT, prev, tag);
-	   for ( int i = 0 ; i< filesize ; i++ ){
-	   	System.out.println ( "Finally : " + empty[i]) ;
-	   }
+	    MPI.COMM_WORLD.recv(list.get(1), filesize,  MPI.INT, prev, tag);
+	    MPI.COMM_WORLD.recv(list.get(2), filesize,  MPI.INT, prev, tag);
+	    MPI.COMM_WORLD.recv(list.get(3), filesize,  MPI.INT, prev, tag);
+	    for( int a = 0 ; a < 4 ; a++){
+	      for ( int i = 0 ; i< 250 ; i++ ){
+		  System.out.println ( "Finally : " + list.get(a)[i] + " - index" + i) ;
+	      }
+	     }  
 	   
 
 		
