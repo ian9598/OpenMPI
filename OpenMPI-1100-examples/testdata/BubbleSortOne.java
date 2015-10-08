@@ -112,7 +112,7 @@ class BubbleSortONE {
 	    System.out.println("Process 0 sending " + message + " to rank " + next + " (" + size + " processes in ring) -"+ tag); 
 	    MPI.COMM_WORLD.send(message, 41,  MPI.INT, next, tag);		 
 	    MPI.COMM_WORLD.send(eachfile, filesize,  MPI.INT, next, tag);
-	    MPI.COMM_WORLD.send(empty, filesize,  MPI.INT, next, tag);
+	 //   MPI.COMM_WORLD.send(empty, filesize,  MPI.INT, next, tag);
 	   
 	}
 	/* Pass the message around the ring.  The exit mechanism works as
@@ -127,7 +127,7 @@ class BubbleSortONE {
 	    	
 	    MPI.COMM_WORLD.recv(message,41, MPI.INT, prev, tag);
 	    MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
-	    MPI.COMM_WORLD.recv(empty, filesize,  MPI.INT, prev, tag);
+	   // MPI.COMM_WORLD.recv(empty, filesize,  MPI.INT, prev, tag);
 	    
 	    System.out.println( myrank +" COUNT : "+ count );	
 	 if (0 == myrank) {
@@ -194,7 +194,7 @@ class BubbleSortONE {
    
 	  MPI.COMM_WORLD.send(message, 41, MPI.INT, next, tag);
 	  MPI.COMM_WORLD.send(eachfile, filesize,  MPI.INT, next, tag);
-	  MPI.COMM_WORLD.send(empty , filesize,  MPI.INT, next, tag);
+	//  MPI.COMM_WORLD.send(empty , filesize,  MPI.INT, next, tag);
 	  
 	  
 	  if (0 == message[40]) {
@@ -211,7 +211,7 @@ class BubbleSortONE {
 	    	
 	    MPI.COMM_WORLD.recv(message,41, MPI.INT, prev, tag);
 	    MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
-	    MPI.COMM_WORLD.recv(empty, filesize,  MPI.INT, prev, tag);
+	  //  MPI.COMM_WORLD.recv(empty, filesize,  MPI.INT, prev, tag);
 	   
 	   
 
