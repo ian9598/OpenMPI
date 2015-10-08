@@ -151,6 +151,7 @@ class BubbleSortONE {
 		for ( int i = 0 ; i< filesize ; i++ ){
 		  if ( empty[i] == 0 && count1 < c) {
 		    empty[i] = gather[count1] ; 
+		    System.out.println( myrank + " * "+ gather[count1] + count ) ; 
 		    count1++ ; 
 		  }
 		  if(count1 == c ){ break ; }
@@ -182,6 +183,7 @@ class BubbleSortONE {
 		for ( int i = 0 ; i< filesize ; i++ ){
 		  if ( empty[i] == 0 && count1 < c) {
 		    empty[i] = gather[count1] ; 
+		    System.out.println( myrank + " * "+ gather[count1] + count ) ; 
 		    count1++ ; 
 		  }
 		  if(count1 == c ){ break ; }
