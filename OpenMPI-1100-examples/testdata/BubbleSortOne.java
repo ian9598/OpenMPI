@@ -146,7 +146,7 @@ class BubbleSortONE {
 				c++ ; 
 			}
 		}
-		BubbleSortNEW.BubbleSort (gather, c ) ;
+		BubbleSortONE.BubbleSort (gather, c ) ;
 		int count = 0 ; 
 		for ( int i = 0 ; i< filesize ; i++ ){
 		  if ( empty[i] == 0 && count < c) {
@@ -177,7 +177,7 @@ class BubbleSortONE {
 				c++ ; 
 			}
 		}
-		BubbleSortNEW.BubbleSort (gather, c ) ;
+		BubbleSortONE.BubbleSort (gather, c ) ;
 		int count = 0 ; 
 		for ( int i = 0 ; i< filesize ; i++ ){
 		  if ( empty[i] == 0 && count < c) {
