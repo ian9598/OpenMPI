@@ -214,7 +214,9 @@ class BubbleSortONE {
 	    MPI.COMM_WORLD.recv(message,41, MPI.INT, prev, tag);
 	    MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
 	    MPI.COMM_WORLD.recv(empty, filesize,  MPI.INT, prev, tag);
-	   
+	   for ( int i = 0 ; i< filesize ; i++ ){
+	   	System.out.println ( "Finally : " + empty[i]) ;
+	   }
 	   
 
 		
