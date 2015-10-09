@@ -66,6 +66,7 @@ class BubbleSortONE {
     static public void main(String[] args) throws MPIException {
 	
 	MPI.Init(args) ;
+	long startTime = 0 ; 
 	int source;  // Rank of sender
 	int dest;    // Rank of receiver 
 	int tag=50;  // Tag for messages	
@@ -109,7 +110,7 @@ class BubbleSortONE {
             try {
     		File file = new File(filenames[ia]);
     	
-    		long startTime =  System.currentTimeMillis();
+    		startTime =  System.currentTimeMillis();
              	BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
              	StringBuffer tmp = new StringBuffer();
              	while (input.ready()) {   
