@@ -54,7 +54,7 @@ class BubbleSortONE {
     } 
 } 	
 
-    private void writeTextFile(File file, String text) {
+    private static void writeTextFile(File file, String text) {
 				// physically write file
 	try {
 		FileOutputStream fo = new FileOutputStream(file);
