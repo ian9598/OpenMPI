@@ -54,7 +54,7 @@ public class BubbleSortONEserial {
     	int ia = Integer.parseInt(args[0]) ; 
     	File savedFile = new File ( filenames[ia]+"serialSorted.txt") ; 
     	int[] sizeOfArray = {1000,10000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000};  
-    int filesize = sizeOfArray[ia]
+    int filesize = sizeOfArray[ia];
     	int[] array = new int[sizeOfArray[ia]] ; 
     	try {
  			
