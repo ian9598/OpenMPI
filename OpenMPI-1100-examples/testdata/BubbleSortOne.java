@@ -263,8 +263,8 @@ class BubbleSortONE {
 		  text+= i + "\n" ;
 	   }
 	   
-	   writeTextFile(file), text ) ;
-	   System.out.println ( "Sorted array save to " + file.getName() )
+	   writeTextFile((file), text ) ;
+	   System.out.println ( "Sorted array save to " + file.getName() );
 		
 	}
     
