@@ -179,7 +179,7 @@ class BubbleSortONE {
 		  upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)
 		}  
 
-		System.out.println("Process 0 decremented value: " + message[40] + " -"+ tag);
+		System.out.println("Process 0 decremented value: " + message[0] + " -"+ tag);
 		int[] gather = new int[filesize] ; 
 		c = 0 ;
 		for ( int i = 0 ; i < filesize ;i++ ){
