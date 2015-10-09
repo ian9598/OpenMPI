@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList; 
+import java.util.concurrent.TimeUnit;
 class BubbleSortONE {
 
     public static void BubbleSort( int [ ] num )
@@ -266,4 +267,78 @@ class BubbleSortONE {
     
 	MPI.Finalize();
     }
+}
+
+public class StopWatchh {
+    
+    private long startTime = 0;
+    private long stopTime = 0;
+    private long startTimeNano = 0;
+    private long stopTimeNano = 0;
+    private boolean running = false;
+
+    
+    public void start() {
+        this.startTime = System.currentTimeMillis(); 
+        this.running = true;
+    }
+
+    public void restartNano(){
+    	startTimeNano = 0 ;
+    }
+    
+    public void stop() {
+        this.stopTime = System.currentTimeMillis();
+        this.running = false;
+    }
+    
+    public void startNano() {
+        this.startTimeNano = System.nanoTime();
+        this.running = true;
+    }
+
+    
+    public void stopNano() {
+        this.stopTimeNano = System.nanoTime(); 
+        this.running = false;
+    }
+  
+    public long getElapsedTimeNano() {
+        long elapsed;
+        if (running) {
+             elapsed = (System.nanoTime() - startTimeNano);
+        }
+        else {
+            elapsed = (stopTimeNano - startTimeNano);
+        }
+        return elapsed;
+    }
+    
+    //elaspsed time in milliseconds
+    public long getElapsedTime() {
+        long elapsed;
+        if (running) {
+             elapsed = (System.currentTimeMillis() - startTime);
+        }
+        else {
+            elapsed = (stopTime - startTime);
+        }
+        return elapsed;
+    }
+    
+    
+    //elaspsed time in seconds
+    public long getElapsedTimeSecs() {
+        long elapsed;
+        if (running) {
+            elapsed = ((System.currentTimeMillis() - startTime) / 1000);
+        }
+        else {
+            elapsed = ((stopTime - startTime) / 1000);
+        }
+        return elapsed;
+    }
+
+   
+
 }
