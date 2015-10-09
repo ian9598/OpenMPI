@@ -86,7 +86,7 @@ class BubbleSortONE {
 	int c = 0 , c2 = 0 , c3 =0 , c4= 0 ; // count 
 	ArrayList <int[]> list = new ArrayList<int[]>() ;
 	for ( int i = 0 ; i < size ; i++ ){
-	  list.add(new int[1000] ) ; 
+	  list.add(new int[filesize] ) ; 
 	}
 
 	/* Calculate the rank of the next process in the ring.  Use the
@@ -246,7 +246,7 @@ class BubbleSortONE {
 	    if (list.get(0)[0] != 0){
 	      for( int a = 1 ; a < list.size() ; a++){ // copy everything into first array 
 		int index = 0 ; 
-		for ( int i = 0 ; i< 1000 ; i++ ){  
+		for ( int i = 0 ; i< filesize ; i++ ){  
 		    if ( list.get(0)[i] == 0 && list.get(a)[index] != 0 ) {
 		      list.get(0)[i] = list.get(a)[index] ; 
 		      index ++ ; 
@@ -258,14 +258,14 @@ class BubbleSortONE {
 	   
 	   
 	   String text = "" ; 
-	   for ( int i = 0 ; i< 1000 ; i++ ){
+	   for ( int i = 0 ; i< filesize ; i++ ){
 		 // System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
 		  text+= list.get(0)[i] + "\n" ;
 	   }
 	   long stopTime =   System.currentTimeMillis(); 
 	   long time =stopTime - startTime ; 
 	   writeTextFile((savedfile), text ) ;
-	   for ( int i = 0 ; i< 1000 ; i++ ){
+	   for ( int i = 0 ; i< filesize ; i++ ){
 		  System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
 		 // text+= list.get(0)[i] + "\n" ;
 	   }
