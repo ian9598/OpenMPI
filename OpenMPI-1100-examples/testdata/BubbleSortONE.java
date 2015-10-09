@@ -260,7 +260,7 @@ class BubbleSortONE {
 	   
 	   writeTextFile((savedfile), text ) ;
 	   System.out.println ( "Sorted array save to " + savedfile.getName() );
-	   System.out.println ("Time it take to sort "+ file.getName() +" : "+time); 
+	   System.out.println ("Time it take to sort "+  filenames[ia].getName() +" : "+time); 
 		
 	}
     
