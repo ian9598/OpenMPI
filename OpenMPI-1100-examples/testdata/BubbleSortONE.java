@@ -169,7 +169,7 @@ class BubbleSortONE {
 		int count1 = 0 ; 
 		for ( int i = 0 ; i< filesize ; i++ ){
 		   list.get(0)[i] = gather[count1] ; 
-		   System.out.println( myrank + " * "+ gather[count1] +" * "+ count ) ; 
+		  // System.out.println( myrank + " * "+ gather[count1] +" * "+ count ) ; 
 		   count1++ ; 
 		   if(count1 == c ){ break ; }
 		}
@@ -205,7 +205,7 @@ class BubbleSortONE {
 		int []array = list.get(myrank) ; 
 		for ( int i = 0 ; i< filesize ; i++ ){
 		  array[i] = gather[count1] ; 
-		  System.out.println( myrank + " * "+ gather[count1] +" * "+ count ) ; 
+		  //System.out.println( myrank + " * "+ gather[count1] +" * "+ count ) ; 
 		  count1++ ; 
 		  if(count1 == c ){ break ; }
 		   
@@ -259,12 +259,16 @@ class BubbleSortONE {
 	   
 	   String text = "" ; 
 	   for ( int i = 0 ; i< 1000 ; i++ ){
-		  System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
+		 // System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
 		  text+= list.get(0)[i] + "\n" ;
 	   }
 	   long stopTime =   System.currentTimeMillis(); 
 	   long time =stopTime - startTime ; 
 	   writeTextFile((savedfile), text ) ;
+	   for ( int i = 0 ; i< 1000 ; i++ ){
+		  System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
+		 // text+= list.get(0)[i] + "\n" ;
+	   }
 	   System.out.println ( "Sorted array save to " + savedfile.getName() );
 	   System.out.println ("Time it take to sort "+  filenames[ia] +" : "+time + " ms"); 
 		
