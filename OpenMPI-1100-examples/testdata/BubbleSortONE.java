@@ -20,7 +20,6 @@ class BubbleSortONE {
      int j;
      boolean flag = true;   // set flag to true to begin first pass
      int temp;   //holding variable
-
      while ( flag )
      {
             flag= false;    //set flag to false awaiting a possible swap
@@ -40,7 +39,6 @@ class BubbleSortONE {
      int j;
      boolean flag = true;   // set flag to true to begin first pass
      int temp;   //holding variable
-
      while ( flag ){
       flag= false;    //set flag to false awaiting a possible swap
       for( j=0;  j < length -1;  j++ ){
@@ -61,15 +59,12 @@ class BubbleSortONE {
 		fo.write(text.getBytes());
 		fo.close();
 	} catch (IOException e) {
-		
 	}
     }
 
     static public void main(String[] args) throws MPIException {
 	
-	
 	MPI.Init(args) ;
-      
 	int source;  // Rank of sender
 	int dest;    // Rank of receiver 
 	int tag=50;  // Tag for messages	
@@ -87,10 +82,7 @@ class BubbleSortONE {
 	for ( int i = 0 ; i < size ; i++ ){
 	  list.add(new int[1000] ) ; 
 	}
-	
-	//if ( args == null){savedfile = new File("sorted1.txt") ;  }
-	//else {  savedfile = new File(args[0]) ; }
-	
+
 	/* Calculate the rank of the next process in the ring.  Use the
 	   modulus operator so that the last process "wraps around" to
 	   rank zero. */
@@ -105,19 +97,14 @@ class BubbleSortONE {
     			"seq.saw.10000.txt", "seq.saw.100000.txt"};
     	File savedfile = new File(filenames[ia] + "sorted1.txt"); 		
     	
-    	
-    	
-    	
         /* If we are the "master" process (i.e., MPI_COMM_WORLD rank 0),
 	put the number of times to go around the ring in the
 	message. */
         if (0 == myrank) {
             try {
-    			
     		File file = new File(filenames[ia]);
              	BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
              	StringBuffer tmp = new StringBuffer();
-             
              	while (input.ready()) {   
              	    String line = input.readLine() ;
                     eachfile[count] = Integer.parseInt(line);
@@ -221,21 +208,19 @@ class BubbleSortONE {
 	  MPI.COMM_WORLD.send(eachfile, filesize,  MPI.INT, next, tag);
 	  for ( int i = 0 ; i < list.size() ; i++ ) {
 	      MPI.COMM_WORLD.send(list.get(i), filesize,  MPI.INT, next, tag);
-	    }
+	  }
 
 	  
 	  if (0 == message[0]) {
 		System.out.println("Process " + myrank + " exiting");
         	break;
 	   }
-	   
 	}
 
 	/* The last process does one extra send to process 0, which needs
 	   to be received before the program can exit */
 
 	if (0 == myrank) {
-	    	
 	    MPI.COMM_WORLD.recv(message,1, MPI.INT, prev, tag);
 	    MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
 	    for ( int i = 0 ; i < list.size() ; i++ ) {
@@ -249,7 +234,7 @@ class BubbleSortONE {
 	    } */ 
 	
 	    if (list.get(0)[0] != 0){
-	      for( int a = 1 ; a < 4 ; a++){ // copy everything into first array 
+	      for( int a = 1 ; a < list.size() ; a++){ // copy everything into first array 
 		int index = 0 ; 
 		for ( int i = 0 ; i< 1000 ; i++ ){  
 		    if ( list.get(0)[i] == 0 && list.get(a)[index] != 0 ) {
