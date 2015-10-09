@@ -78,7 +78,7 @@ public class BubbleSortONEserial {
           	   }
           	st.stop() ;    
           	writeTextFile((savedFile), text ) ;
-             	System.out.println ( "Sorted array save to " + savedfile.getName() );
+             	System.out.println ( "Sorted array save to " + savedFile.getName() );
 		 System.out.println ("Time it take to sort "+ file.getName() +" : "+time); 
             
      } catch (Exception e) {
