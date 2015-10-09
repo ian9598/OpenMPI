@@ -44,8 +44,8 @@ public class BubbleSortONEserial {
 
 
     public static void main(String[] args)  {
-    	long totaltime = 0 ; 
-    	
+    	long time = 0 ; 
+    	Stopwatch st = new StopWatch(); 
     	String[] filenames = {"med.3.killer.1000.txt","med.3.killer.10000.txt","rand.dups.1000.txt","rand.dups.10000.txt","rand.dups.100000.txt",
     			"rand.no.dups.1000.txt","rand.no.dups.10000.txt","rand.no.dups.100000.txt", "rand.steps.1000.txt","rand.steps.10000.txt",
     			"rand.steps.100000.txt", "rev.partial.1000.txt","rev.partial.10000.txt","rev.partial.100000.txt", "rev.saw.1000.txt","rev.saw.10000.txt",
@@ -57,7 +57,7 @@ public class BubbleSortONEserial {
     	int[] array = new int[sizeOfArray[ia]] ; 
     	try {
  				
-    			File file = new File(filenames[ia]);
+    		File file = new File(filenames[ia]);
              	BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
              	StringBuffer tmp = new StringBuffer();
              	
@@ -69,15 +69,17 @@ public class BubbleSortONEserial {
              		c++ ; 
 
              	}
+             	st.start() ; 
              	BubbleSortONEserial.BubbleSort(array) ; 
              	String text = "" ; 
              	for ( int  i= 0 ; i< 1000 ; i++ ){
           		  System.out.println ( "Finally : " + array[i]+ " - index *" + i) ;
           		  text+= array[i] + "\n" ;
           	   }
-          	   
-          	   writeTextFile((savedFile), text ) ;
-             	
+          	st.stop() ;    
+          	writeTextFile((savedFile), text ) ;
+             	System.out.println ( "Sorted array save to " + savedfile.getName() );
+		 System.out.println ("Time it take to sort "+ file.getName() +" : "+time); 
             
      } catch (Exception e) {
             
