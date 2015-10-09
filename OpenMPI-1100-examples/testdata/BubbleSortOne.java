@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList; 
@@ -53,6 +54,16 @@ class BubbleSortONE {
     } 
 } 	
 
+    private void writeTextFile(File file, String text) {
+				// physically write file
+	try {
+		FileOutputStream fo = new FileOutputStream(file);
+		fo.write(text.getBytes());
+		fo.close();
+	} catch (IOException e) {
+		
+	}
+    }
 
     static public void main(String[] args) throws MPIException {
 	
@@ -76,7 +87,7 @@ class BubbleSortONE {
 	for ( int i = 0 ; i < size ; i++ ){
 	  list.add(new int[1000] ) ; 
 	}
-
+	File file = new File("sorted1.txt ") ; 
 	
 	/* Calculate the rank of the next process in the ring.  Use the
 	   modulus operator so that the last process "wraps around" to
@@ -246,11 +257,14 @@ class BubbleSortONE {
 		}
 	      } 
 	   }
-	   
+	   String text = "" ; 
 	   for ( int i = 0 ; i< 1000 ; i++ ){
-		  System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
+		  //System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
+		  text+= i + "\n" ;
 	   }
 	   
+	   writeTextFile(file), text ) ;
+	   System.out.println ( "Sorted array save to " + file.getName() )
 		
 	}
     
