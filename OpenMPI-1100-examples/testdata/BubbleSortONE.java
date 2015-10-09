@@ -72,7 +72,9 @@ class BubbleSortONE {
 	int prev;
 	int message[]	 = {2, 3, 4, 12, 11, 1, 99,87,98,99, 999,165,433,423, 989, 423, 533, 660, 604, 776,999,165,433,423, 989, 423, 533, 660, 604, 776,1912, 1413, 1104, 1212, 1311, 1231, 1199,1487,1098,1099,3999,2165,1433,1423, 3989, 7423, 3533, 1660, 1604, 2776,10};
 	int[] sizeOfArray = {1000,10000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000};  
-	int ia = 0 ; 	int count = 0 ; 
+//	int ia = 0 ; 	
+	int ia = Integer.parseInt(args[0] ) ; 
+	int count = 0 ; 
 	int filesize = sizeOfArray[ia] ; 
 	int [] eachfile = new int[filesize];
 	int myrank = MPI.COMM_WORLD.getRank() ;
@@ -103,6 +105,8 @@ class BubbleSortONE {
         if (0 == myrank) {
             try {
     		File file = new File(filenames[ia]);
+    		StopWatch st = new StopWatch () ; 
+    		long time = 0 ; 
              	BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
              	StringBuffer tmp = new StringBuffer();
              	while (input.ready()) {   
@@ -120,6 +124,7 @@ class BubbleSortONE {
 	    for ( int i = 0 ; i < list.size() ; i++ ) {
 	      MPI.COMM_WORLD.send(list.get(i), filesize,  MPI.INT, next, tag);
 	    }
+	    st.start () ; 
 	   
 	}
 	/* Pass the message around the ring.  The exit mechanism works as
@@ -245,6 +250,8 @@ class BubbleSortONE {
 		}
 	      } 
 	   }
+	   st.stop();
+	   time = st.getElapsedTime(); 
 	   String text = "" ; 
 	   for ( int i = 0 ; i< 1000 ; i++ ){
 		  System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
@@ -253,6 +260,7 @@ class BubbleSortONE {
 	   
 	   writeTextFile((savedfile), text ) ;
 	   System.out.println ( "Sorted array save to " + savedfile.getName() );
+	   System.out.println ("Time it take to sort "+ file.getName() +" : "+time); 
 		
 	}
     
