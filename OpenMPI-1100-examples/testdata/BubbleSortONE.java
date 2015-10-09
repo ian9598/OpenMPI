@@ -13,7 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList; 
-import java.util.concurrent.TimeUnit;
+ 
 class BubbleSortONE {
 
     public static void BubbleSort( int [ ] num )
@@ -71,8 +71,10 @@ class BubbleSortONE {
 	int tag=50;  // Tag for messages	
 	int next;
 	int prev;
-	int message[]	 = {2, 3, 4, 12, 11, 1, 99,87,98,99, 999,165,433,423, 989, 423, 533, 660, 604, 776,999,165,433,423, 989, 423, 533, 660, 604, 776,1912, 1413, 1104, 1212, 1311, 1231, 1199,1487,1098,1099,3999,2165,1433,1423, 3989, 7423, 3533, 1660, 1604, 2776,10};
-	int[] sizeOfArray = {1000,10000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000};  
+	int message[]	 = {2, 3, 4, 12, 11, 1, 99,87,98,99, 999,165,433,423, 989, 423, 533, 660, 604, 776,999,165,433,423, 989, 423, 533, 660, 604, 776,1912, 1413, 
+1104, 1212, 1311, 1231, 1199,1487,1098,1099,3999,2165,1433,1423, 3989, 7423, 3533, 1660, 1604, 2776,10};
+	int[] sizeOfArray = 
+{1000,10000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000};  
 //	int ia = 0 ; 	
 	int ia = Integer.parseInt(args[0] ) ; 
 	int count = 0 ; 
@@ -106,8 +108,8 @@ class BubbleSortONE {
         if (0 == myrank) {
             try {
     		File file = new File(filenames[ia]);
-    		StopWatchh st = new StopWatch () ; 
-    		long time = 0 ; 
+    	
+    		long startTime =  System.currentTimeMillis();
              	BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
              	StringBuffer tmp = new StringBuffer();
              	while (input.ready()) {   
@@ -125,7 +127,7 @@ class BubbleSortONE {
 	    for ( int i = 0 ; i < list.size() ; i++ ) {
 	      MPI.COMM_WORLD.send(list.get(i), filesize,  MPI.INT, next, tag);
 	    }
-	    st.start () ; 
+	
 	   
 	}
 	/* Pass the message around the ring.  The exit mechanism works as
@@ -137,6 +139,7 @@ class BubbleSortONE {
 	   and can quit normally. */
 	
 	while (true) {
+		
 	    	
 	    MPI.COMM_WORLD.recv(message,1, MPI.INT, prev, tag);
 	    MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
@@ -251,17 +254,18 @@ class BubbleSortONE {
 		}
 	      } 
 	   }
-	   st.stop();
-	   time = st.getElapsedTime(); 
+	   
+	   
 	   String text = "" ; 
 	   for ( int i = 0 ; i< 1000 ; i++ ){
 		  System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
 		  text+= list.get(0)[i] + "\n" ;
 	   }
-	   
+	   long stopTime =   System.currentTimeMillis(); 
+	   long time =stopTime - startTime ; 
 	   writeTextFile((savedfile), text ) ;
 	   System.out.println ( "Sorted array save to " + savedfile.getName() );
-	   System.out.println ("Time it take to sort "+  filenames[ia].getName() +" : "+time); 
+	   System.out.println ("Time it take to sort "+  filenames[ia] +" : "+time); 
 		
 	}
     
@@ -269,76 +273,3 @@ class BubbleSortONE {
     }
 }
 
-public class StopWatchh {
-    
-    private long startTime = 0;
-    private long stopTime = 0;
-    private long startTimeNano = 0;
-    private long stopTimeNano = 0;
-    private boolean running = false;
-
-    
-    public void start() {
-        this.startTime = System.currentTimeMillis(); 
-        this.running = true;
-    }
-
-    public void restartNano(){
-    	startTimeNano = 0 ;
-    }
-    
-    public void stop() {
-        this.stopTime = System.currentTimeMillis();
-        this.running = false;
-    }
-    
-    public void startNano() {
-        this.startTimeNano = System.nanoTime();
-        this.running = true;
-    }
-
-    
-    public void stopNano() {
-        this.stopTimeNano = System.nanoTime(); 
-        this.running = false;
-    }
-  
-    public long getElapsedTimeNano() {
-        long elapsed;
-        if (running) {
-             elapsed = (System.nanoTime() - startTimeNano);
-        }
-        else {
-            elapsed = (stopTimeNano - startTimeNano);
-        }
-        return elapsed;
-    }
-    
-    //elaspsed time in milliseconds
-    public long getElapsedTime() {
-        long elapsed;
-        if (running) {
-             elapsed = (System.currentTimeMillis() - startTime);
-        }
-        else {
-            elapsed = (stopTime - startTime);
-        }
-        return elapsed;
-    }
-    
-    
-    //elaspsed time in seconds
-    public long getElapsedTimeSecs() {
-        long elapsed;
-        if (running) {
-            elapsed = ((System.currentTimeMillis() - startTime) / 1000);
-        }
-        else {
-            elapsed = ((stopTime - startTime) / 1000);
-        }
-        return elapsed;
-    }
-
-   
-
-}
