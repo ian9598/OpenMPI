@@ -259,8 +259,8 @@ class BubbleSortONE {
 	   }
 	   String text = "" ; 
 	   for ( int i = 0 ; i< 1000 ; i++ ){
-		  //System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
-		  text+= i + "\n" ;
+		  System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
+		  text+= list.get(0)[i] + "\n" ;
 	   }
 	   
 	   writeTextFile((savedfile), text ) ;
