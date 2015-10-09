@@ -87,9 +87,9 @@ class BubbleSortONE {
 	for ( int i = 0 ; i < size ; i++ ){
 	  list.add(new int[1000] ) ; 
 	}
-	File savedfile  ; 
-	if ( args == null){savedfile = new File("sorted1.txt") ;  }
-	else {  savedfile = new File(args[0]) ; }
+	
+	//if ( args == null){savedfile = new File("sorted1.txt") ;  }
+	//else {  savedfile = new File(args[0]) ; }
 	
 	/* Calculate the rank of the next process in the ring.  Use the
 	   modulus operator so that the last process "wraps around" to
@@ -103,6 +103,7 @@ class BubbleSortONE {
     			"rand.steps.100000.txt", "rev.partial.1000.txt","rev.partial.10000.txt","rev.partial.100000.txt", "rev.saw.1000.txt","rev.saw.10000.txt",
     			"rev.saw.100000.txt", "seq.partial.1000.txt","seq.partial.10000.txt","seq.partial.100000.txt","seq.saw.1000.txt",
     			"seq.saw.10000.txt", "seq.saw.100000.txt"};
+    	File savedfile = new File(filenames[ia] + "sorted1.txt"); 		
     	
     	
     	
