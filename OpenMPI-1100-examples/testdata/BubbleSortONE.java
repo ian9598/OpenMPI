@@ -266,7 +266,7 @@ class BubbleSortONE {
 	   long time =stopTime - startTime ; 
 	   writeTextFile((savedfile), text ) ;
 	   System.out.println ( "Sorted array save to " + savedfile.getName() );
-	   System.out.println ("Time it take to sort "+  filenames[ia] +" : "+time); 
+	   System.out.println ("Time it take to sort "+  filenames[ia] +" : "+time + " ms"); 
 		
 	}
     
