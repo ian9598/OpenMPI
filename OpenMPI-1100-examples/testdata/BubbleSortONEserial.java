@@ -74,8 +74,8 @@ public class BubbleSortONEserial {
              	BubbleSortONEserial.BubbleSort(array) ; 
              	String text = "" ; 
              	for ( int  i= 0 ; i< filesize ; i++ ){
-          		  System.out.println ( "Finally : " + array[i]+ " - index *" + i) ;
-          	//	  text+= array[i] + "\n" ;
+          		//  System.out.println ( "Finally : " + array[i]+ " - index *" + i) ;
+          		  text+= array[i] + "\n" ;
           	   }
           	st.stop() ;    
           	time = st.getElapsedTime();
