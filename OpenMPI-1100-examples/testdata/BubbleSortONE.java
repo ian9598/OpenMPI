@@ -88,7 +88,7 @@ class BubbleSortONE {
 	  list.add(new int[1000] ) ; 
 	}
 	File savedfile  ; 
-	if ( args.length > 0){savedfile = new File("sorted1.txt") ;  }
+	if ( args == null){savedfile = new File("sorted1.txt") ;  }
 	else {  savedfile = new File(args[0]) ; }
 	
 	/* Calculate the rank of the next process in the ring.  Use the
