@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 
-public class Sort {
+public class BubbleSortONEserial {
 
     public static void BubbleSort( int [ ] num )
 {
@@ -69,7 +69,7 @@ public class Sort {
              		c++ ; 
 
              	}
-             	Sort.BubbleSort(array) ; 
+             	BubbleSortONEserial.BubbleSort(array) ; 
              	String text = "" ; 
              	for ( int  i= 0 ; i< 1000 ; i++ ){
           		  System.out.println ( "Finally : " + array[i]+ " - index *" + i) ;
