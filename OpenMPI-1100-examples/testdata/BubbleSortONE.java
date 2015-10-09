@@ -106,7 +106,7 @@ class BubbleSortONE {
         if (0 == myrank) {
             try {
     		File file = new File(filenames[ia]);
-    		StopWatch st = new StopWatch () ; 
+    		StopWatchh st = new StopWatch () ; 
     		long time = 0 ; 
              	BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
              	StringBuffer tmp = new StringBuffer();
