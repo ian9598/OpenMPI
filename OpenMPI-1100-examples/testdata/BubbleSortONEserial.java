@@ -54,6 +54,7 @@ public class BubbleSortONEserial {
     	int ia = Integer.parseInt(args[0]) ; 
     	File savedFile = new File ( filenames[ia]+"serialSorted.txt") ; 
     	int[] sizeOfArray = {1000,10000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000};  
+    int filesize = sizeOfArray[ia]
     	int[] array = new int[sizeOfArray[ia]] ; 
     	try {
  			
@@ -72,7 +73,7 @@ public class BubbleSortONEserial {
              	st.start() ; 
              	BubbleSortONEserial.BubbleSort(array) ; 
              	String text = "" ; 
-             	for ( int  i= 0 ; i< 1000 ; i++ ){
+             	for ( int  i= 0 ; i< filesize ; i++ ){
           		  System.out.println ( "Finally : " + array[i]+ " - index *" + i) ;
           		  text+= array[i] + "\n" ;
           	   }
