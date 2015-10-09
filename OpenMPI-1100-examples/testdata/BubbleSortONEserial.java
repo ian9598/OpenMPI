@@ -51,12 +51,12 @@ public class BubbleSortONEserial {
     			"rand.steps.100000.txt", "rev.partial.1000.txt","rev.partial.10000.txt","rev.partial.100000.txt", "rev.saw.1000.txt","rev.saw.10000.txt",
     			"rev.saw.100000.txt", "seq.partial.1000.txt","seq.partial.10000.txt","seq.partial.100000.txt","seq.saw.1000.txt",
     			"seq.saw.10000.txt", "seq.saw.100000.txt"};
-    	
+    	int ia = Integer.parseInt(args[0]) ; 
     	File savedFile = new File ( filenames[ia]+"serialSorted.txt") ; 
     	int[] sizeOfArray = {1000,10000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000};  
     	int[] array = new int[sizeOfArray[ia]] ; 
     	try {
- 		int ia = Integer.parseInt(args[0]) ; 	
+ 			
     		File file = new File(filenames[ia]);
              	BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
              	StringBuffer tmp = new StringBuffer();
