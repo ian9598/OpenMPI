@@ -94,7 +94,7 @@ class SelectionSortONE {
     			"rand.steps.100000.txt", "rev.partial.1000.txt","rev.partial.10000.txt","rev.partial.100000.txt", "rev.saw.1000.txt","rev.saw.10000.txt",
     			"rev.saw.100000.txt", "seq.partial.1000.txt","seq.partial.10000.txt","seq.partial.100000.txt","seq.saw.1000.txt",
     			"seq.saw.10000.txt", "seq.saw.100000.txt"};
-    	File savedfile = new File(filenames[ia] + "SELECTIONSORTED.txt"); 		
+    	File savedfile = new File("result/" + filenames[ia] + "SELECTIONSORTED.txt"); 		
     	
         /* If we are the "master" process (i.e., MPI_COMM_WORLD rank 0),
 	put the number of times to go around the ring in the
@@ -257,13 +257,10 @@ class SelectionSortONE {
 	   }
 	   long stopTime =   System.currentTimeMillis(); 
 	   long time =stopTime - startTime ; 
-	   String t ="Time it take to sort: " + time +" ms\n"  ;
-	   t = t+text ; 
-	   writeTextFile((savedfile), t ) ;
-	  // for ( int i = 0 ; i< filesize ; i++ ){
-	//	  System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
-		 // text+= list.get(0)[i] + "\n" ;
-	  // }
+	   String t = "Time took to sort : "+ time + " ms \n";
+	   writeTextFile((savedfile), t+""+text ) ;
+	  
+	  
 	   System.out.println ( "Sorted array save to " + savedfile.getName() );
 	   System.out.println ("Time it take to sort "+  filenames[ia] +" : "+time + " ms"); 
 		
