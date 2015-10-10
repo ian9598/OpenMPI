@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 
-public class InsertionONEserial {
+public class InsertionSortONEserial {
 
      public static void insertionSort( int [ ] a )
 	{
