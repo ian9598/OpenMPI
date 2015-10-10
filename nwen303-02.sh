@@ -9,8 +9,8 @@ echo ==UNAME==
 uname -n
 /usr/pkg/bin/mpirun -np $NSLOTS \
  /usr/pkg/java/sun-7/bin/java   \
-   -classpath /u/students/leatseng/NWEN303_2015T2/OpenMPI-1100-examples \
- Sort
+   -classpath /u/students/leatseng/NWEN303_2015T2/OpenMPI-1100-examples/testdata \SelectionSort 0
+ 
 
 
 
