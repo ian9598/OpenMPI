@@ -1,3 +1,4 @@
+Time it take to sort: 130 ms
 1
 2
 3

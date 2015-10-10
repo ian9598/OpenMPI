@@ -102,11 +102,25 @@ class BubbleSortONE {
     			"rev.saw.100000.txt", "seq.partial.1000.txt","seq.partial.10000.txt","seq.partial.100000.txt","seq.saw.1000.txt",
     			"seq.saw.10000.txt", "seq.saw.100000.txt"};
     	File savedfile = new File(filenames[ia] + "sorted1.txt"); 		
-    	
+/*	 try {
+                File file = new File(filenames[ia]);
+        
+                startTime =  System.currentTimeMillis();
+                BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+                StringBuffer tmp = new StringBuffer();
+                while (input.ready()) {
+                    String line = input.readLine() ;
+                    eachfile[count] = Integer.parseInt(line);
+                    count++;
+                }
+            } catch (Exception e) {        }  
+
+  */	
         /* If we are the "master" process (i.e., MPI_COMM_WORLD rank 0),
 	put the number of times to go around the ring in the
 	message. */
         if (0 == myrank) {
+
             try {
     		File file = new File(filenames[ia]);
     	
@@ -205,7 +219,7 @@ class BubbleSortONE {
 		int []array = list.get(myrank) ; 
 		for ( int i = 0 ; i< filesize ; i++ ){
 		  array[i] = gather[count1] ; 
-		  //System.out.println( myrank + " * "+ gather[count1] +" * "+ count ) ; 
+		  System.out.println( myrank + " * "+ gather[count1] +" * "+ count ) ; 
 		  count1++ ; 
 		  if(count1 == c ){ break ; }
 		   
@@ -258,17 +272,14 @@ class BubbleSortONE {
 	   
 	   
 	   String text = "" ; 
-	   for ( int i = 0 ; i< filesize ; i++ ){
-		 // System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
-		  text+= list.get(0)[i] + "\n" ;
+	   for ( int i = 0 ; i< 40 ; i++ ){
+		  System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
+		  text+= list.get(0)[i]+"dfsdfd" + "\n" ;
 	   }
 	   long stopTime =   System.currentTimeMillis(); 
 	   long time =stopTime - startTime ; 
 	   writeTextFile((savedfile), text ) ;
-	  // for ( int i = 0 ; i< filesize ; i++ ){
-	//	  System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
-		 // text+= list.get(0)[i] + "\n" ;
-	  // }
+	  
 	   System.out.println ( "Sorted array save to " + savedfile.getName() );
 	   System.out.println ("Time it take to sort "+  filenames[ia] +" : "+time + " ms"); 
 		
