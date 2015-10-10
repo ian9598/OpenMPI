@@ -251,11 +251,10 @@ class InsertionSortONE {
 	   }
 	   long stopTime =   System.currentTimeMillis(); 
 	   long time =stopTime - startTime ; 
-	   writeTextFile((savedfile), text ) ;
-	  // for ( int i = 0 ; i< filesize ; i++ ){
-	//	  System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
-		 // text+= list.get(0)[i] + "\n" ;
-	  // }
+	   String t = "Time took to sort : "+ time + " ms \n";
+	   writeTextFile((savedfile), t+""+text ) ;	  
+
+	 
 	   System.out.println ( "Sorted array save to " + savedfile.getName() );
 	   System.out.println ("Time it take to sort "+  filenames[ia] +" : "+time + " ms"); 
 		
