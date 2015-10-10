@@ -279,7 +279,7 @@ class BubbleSortONE {
 	   
 	   long stopTime =   System.currentTimeMillis(); 
 	   long time =stopTime - startTime ; 
-	   String t = "Time took to sort : "+ time + " \n";
+	   String t = "Time took to sort : "+ time + " ms \n";
 	   writeTextFile((savedfile), t+""+text ) ;
 	  
 	   System.out.println ( "Sorted array save to " + savedfile.getName() );
