@@ -42,7 +42,7 @@ public class InsertionSortONEserial {
     			"rev.saw.100000.txt", "seq.partial.1000.txt","seq.partial.10000.txt","seq.partial.100000.txt","seq.saw.1000.txt",
     			"seq.saw.10000.txt", "seq.saw.100000.txt"};
     	int ia = Integer.parseInt(args[0]) ; 
-    	File savedFile = new File ( filenames[ia]+"serialSorted.txt") ; 
+    	File savedFile = new File ( filenames[ia]+"INSERTIONSERIAL.txt") ; 
     	int[] sizeOfArray = {1000,10000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000,1000,10000,100000};  
     int filesize = sizeOfArray[ia];
     	int[] array = new int[sizeOfArray[ia]] ; 
