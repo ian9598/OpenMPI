@@ -162,7 +162,7 @@ class SelectionSortONE {
 		int count1 = 0 ; 
 		for ( int i = 0 ; i< filesize ; i++ ){
 		   list.get(0)[i] = gather[count1] ; 
-		   System.out.println( myrank + " * "+ gather[count1] +" * "+ count ) ; 
+		   //System.out.println( myrank + " * "+ gather[count1] +" * "+ count ) ; 
 		   count1++ ; 
 		   if(count1 == c ){ break ; }
 		}
@@ -198,7 +198,7 @@ class SelectionSortONE {
 		int []array = list.get(myrank) ; 
 		for ( int i = 0 ; i< filesize ; i++ ){
 		  array[i] = gather[count1] ; 
-		  System.out.println( myrank + " * "+ gather[count1] +" * "+ count ) ; 
+		  //System.out.println( myrank + " * "+ gather[count1] +" * "+ count ) ; 
 		  count1++ ; 
 		  if(count1 == c ){ break ; }
 		   
@@ -252,7 +252,7 @@ class SelectionSortONE {
 	   
 	   String text = "" ; 
 	   for ( int i = 0 ; i< filesize ; i++ ){
-		  System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
+		  //System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
 		  text+= list.get(0)[i] + "\n" ;
 	   }
 	   long stopTime =   System.currentTimeMillis(); 
