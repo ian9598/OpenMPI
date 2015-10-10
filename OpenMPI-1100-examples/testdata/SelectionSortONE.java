@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList; 
  
-class selectionSortONE {
+class SelectionSortONE {
 //http://java2novice.com/java-sorting-algorithms/selection-sort/
     public static void selectionSort( int [ ] a ){
 	
