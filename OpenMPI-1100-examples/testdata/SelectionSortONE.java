@@ -33,10 +33,10 @@ class SelectionSortONE {
 
     public static void selectionSort( int [ ] a , int length )
 	{
-	     for (int i = 0; i < a.length - 1; i++){
+	     for (int i = 0; i <length - 1; i++){
 	         
 	             int index = i;
-	             for (int j = i + 1; j < a.length; j++){
+	             for (int j = i + 1; j < length; j++){
 	                 if (a[j] < a[index]){
 	                     index = j;}
 	             }    
