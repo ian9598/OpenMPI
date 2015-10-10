@@ -258,8 +258,8 @@ class SelectionSortONE {
 	   long stopTime =   System.currentTimeMillis(); 
 	   long time =stopTime - startTime ; 
 	   String t ="Time it take to sort: " + time +" ms\n"  ;
-	   text = t+text ; 
-	   writeTextFile((savedfile), text ) ;
+	   t = t+text ; 
+	   writeTextFile((savedfile), t ) ;
 	  // for ( int i = 0 ; i< filesize ; i++ ){
 	//	  System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
 		 // text+= list.get(0)[i] + "\n" ;
