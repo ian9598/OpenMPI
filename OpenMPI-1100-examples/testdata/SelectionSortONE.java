@@ -250,7 +250,7 @@ class SelectionSortONE {
 	   }
 	   
 	   
-	   String text = "" ; 
+	   String text = "Time it take to sort: " + time +" ms\n" ; 
 	   for ( int i = 0 ; i< filesize ; i++ ){
 		  //System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
 		  text+= list.get(0)[i] + "\n" ;
