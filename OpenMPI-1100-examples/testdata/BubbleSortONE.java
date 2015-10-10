@@ -170,7 +170,7 @@ class BubbleSortONE {
 		int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
 		int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)
 
-		System.out.println("Process 0 decremented value: " + message[40] + " -"+ tag);
+		System.out.println("Process 0 decremented value: " + message[0] + " -"+ tag);
 		int[] gather = new int[filesize] ; 
 		c = 0 ;
 		for ( int i = 0 ; i < filesize ;i++ ){
@@ -204,7 +204,7 @@ class BubbleSortONE {
 		  upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)
 		}  
 
-		System.out.println("Process 0 decremented value: " + message[0] + " -"+ tag);
+		//System.out.println("Process 0 decremented value: " + message[0] + " -"+ tag);
 		int[] gather = new int[filesize] ; 
 		c = 0 ;
 		for ( int i = 0 ; i < filesize ;i++ ){
@@ -219,7 +219,7 @@ class BubbleSortONE {
 		int []array = list.get(myrank) ; 
 		for ( int i = 0 ; i< filesize ; i++ ){
 		  array[i] = gather[count1] ; 
-		  System.out.println( myrank + " * "+ gather[count1] +" * "+ count ) ; 
+		 // System.out.println( myrank + " * "+ gather[count1] +" * "+ count ) ; 
 		  count1++ ; 
 		  if(count1 == c ){ break ; }
 		   
@@ -272,13 +272,15 @@ class BubbleSortONE {
 	   
 	   
 	   String text = "" ; 
-	   for ( int i = 0 ; i< 40 ; i++ ){
-		  System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
-		  text+= list.get(0)[i]+"dfsdfd" + "\n" ;
+	   for ( int i = 0 ; i< filesize ; i++ ){
+		 // System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
+		  text+= list.get(0)[i] + "\n" ;
 	   }
+	   
 	   long stopTime =   System.currentTimeMillis(); 
 	   long time =stopTime - startTime ; 
-	   writeTextFile((savedfile), text ) ;
+	   String t = "Time took to sort : "+ time + " \n";
+	   writeTextFile((savedfile), t+""+text ) ;
 	  
 	   System.out.println ( "Sorted array save to " + savedfile.getName() );
 	   System.out.println ("Time it take to sort "+  filenames[ia] +" : "+time + " ms"); 
