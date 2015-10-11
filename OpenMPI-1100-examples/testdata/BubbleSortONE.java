@@ -206,6 +206,7 @@ class BubbleSortONE {
 		float ub = (float)(bound * (myrank+1))-1;
 		int lowerBound = Math.round(lb);
 		int upperBound = Math.round(ub);
+		System.out.println ( lb +" "+ub +" -- " + lowerBound +"|"+upperBound) ; 
 		if ( myrank == size-1 ) {
 		  upperBound = Math.round((bound * (myrank+1))); 
 		}
