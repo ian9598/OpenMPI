@@ -3,7 +3,6 @@
  *
  * Simple ring test program
  */
-
 import mpi.* ;
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,9 +12,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList; 
- 
-class BubbleSortONE {
 
+class BubbleSortONE { 
+    /* This method is from http://mathbits.com/MathBits/Java/arrays/Bubble.htm */	
     public static void BubbleSort( int [ ] num )
 {
      int j;
@@ -53,8 +52,10 @@ class BubbleSortONE {
     } 
 } 	
 
+   /*write the text to a file 
+   */
     private static void writeTextFile(File file, String text) {
-				// physically write file
+			
 	try {
 		FileOutputStream fo = new FileOutputStream(file);
 		fo.write(text.getBytes());
@@ -85,6 +86,8 @@ class BubbleSortONE {
 	int size = MPI.COMM_WORLD.getSize() ;
 	int c = 0 , c2 = 0 , c3 =0 , c4= 0 ; // count 
 	ArrayList <int[]> list = new ArrayList<int[]>() ;
+	
+	// create array according the size 
 	for ( int i = 0 ; i < size ; i++ ){
 	  list.add(new int[filesize] ) ; 
 	}
@@ -102,28 +105,14 @@ class BubbleSortONE {
     			"rev.saw.100000.txt", "seq.partial.1000.txt","seq.partial.10000.txt","seq.partial.100000.txt","seq.saw.1000.txt",
     			"seq.saw.10000.txt", "seq.saw.100000.txt"};
     	File savedfile = new File(size+"result/" +filenames[ia] + size + "BUBBLESORT.txt"); 		
-/*	 try {
-                File file = new File(filenames[ia]);
-        
-                startTime =  System.currentTimeMillis();
-                BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-                StringBuffer tmp = new StringBuffer();
-                while (input.ready()) {
-                    String line = input.readLine() ;
-                    eachfile[count] = Integer.parseInt(line);
-                    count++;
-                }
-            } catch (Exception e) {        }  
-
-  */	
+	
         /* If we are the "master" process (i.e., MPI_COMM_WORLD rank 0),
 	put the number of times to go around the ring in the
 	message. */
         if (0 == myrank) {
-
+	    /*I made the 0 host read the file */
             try {
     		File file = new File(filenames[ia]);
-    	
     		startTime =  System.currentTimeMillis();
              	BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
              	StringBuffer tmp = new StringBuffer();
@@ -136,14 +125,15 @@ class BubbleSortONE {
 	    message[0] = 1 ; 
 	    System.out.println( myrank +" COUNT : "+ count );
 	    System.out.println("Process 0 sending " + message + " to rank " + next + " (" + size + " processes in ring) -"+ tag); 
-	    MPI.COMM_WORLD.send(message, 1,  MPI.INT, next, tag);		 
+	    
+	    /* Send the message which will indicate when to exit the loop */
+	    MPI.COMM_WORLD.send(message, 1,  MPI.INT, next, tag);	
+	    /* Send the array that contain the data after reading the file */
 	    MPI.COMM_WORLD.send(eachfile, filesize,  MPI.INT, next, tag);
-	 
+	    /* Loop size(4 machine = 4 times ) time and send number of time */
 	    for ( int i = 0 ; i < list.size() ; i++ ) {
 	      MPI.COMM_WORLD.send(list.get(i), filesize,  MPI.INT, next, tag);
 	    }
-	
-	   
 	}
 	/* Pass the message around the ring.  The exit mechanism works as
 	   follows: the message (a positive integer) is passed around the
@@ -152,10 +142,8 @@ class BubbleSortONE {
 	   passes the message on to the next process and then quits.  By
 	   passing the 0 message first, every process gets the 0 message
 	   and can quit normally. */
-	
 	while (true) {
-		
-	    	
+	    /*Receive the array that send from 0 host*/	
 	    MPI.COMM_WORLD.recv(message,1, MPI.INT, prev, tag);
 	    MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
 	    for ( int i = 0 ; i < list.size() ; i++ ) {
@@ -166,10 +154,7 @@ class BubbleSortONE {
 	 if (0 == myrank) {
 		--message[0];
 		System.out.println ( "Here" + myrank);
-	//	int boundSize  = (filesize/size ) ; 
-	//	int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
-	//	int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)
-		
+		/* Caculate the boundary of the range that the machine should take from the array */
 		float bound =  ((float)filesize/ (float)size);
 		float lb = (float) bound* (float)myrank ; 
 		float ub = (float)(bound * ((float)myrank+1))-1;
@@ -178,14 +163,17 @@ class BubbleSortONE {
 		System.out.println("Process 0 decremented value: " + message[0] + " -"+ tag);
 		int[] gather = new int[filesize] ; 
 		c = 0 ;
+		/* go through the data array and take the data that in the range*/
 		for ( int i = 0 ; i < filesize ;i++ ){
 			if(eachfile[i] >= lowerBound && eachfile[i] <=  upperBound ){
 				gather[c] = eachfile[i] ; 
 				c++ ; 
 			}
 		}
+		// Sort the host's array
 		BubbleSortONE.BubbleSort (gather, c ) ;
 		int count1 = 0 ; 
+		// Copy the host array into the list's array (list(0) is belong to host 0 , list(1) belong to host1 etc...
 		for ( int i = 0 ; i< filesize ; i++ ){
 		   list.get(0)[i] = gather[count1] ; 
 		  // System.out.println( myrank + " * "+ gather[count1] +" * "+ count ) ; 
@@ -193,15 +181,11 @@ class BubbleSortONE {
 		   if(count1 == c ){ break ; }
 		}
 	
-		
-		
  	 }	
 		
 	else {	
 		System.out.println ( "Here" + myrank);
-		//	int boundSize  = (filesize/size ) ; 
-	//	int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
-	//	int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)
+		/* Caculate the boundary of the range that the machine should take from the array */
 		float bound =  ((float)filesize/ (float)size);
 		float lb = (float) bound* (float)myrank ; 
 		float ub = (float)(bound * ((float)myrank+1))-1;
@@ -215,9 +199,9 @@ class BubbleSortONE {
 		  upperBound = Math.round((bound * (myrank+1)) -1  );  // ( 0.25*1)
 		}  
 
-		//System.out.println("Process 0 decremented value: " + message[0] + " -"+ tag);
 		int[] gather = new int[filesize] ; 
 		c = 0 ;
+		/* go through the data array and take the data that in the range*/
 		for ( int i = 0 ; i < filesize ;i++ ){
 		  if(eachfile[i] >= lowerBound && eachfile[i] <=  upperBound ){
 			gather[c] = eachfile[i] ; 
@@ -225,7 +209,6 @@ class BubbleSortONE {
 		  }
 		}
 		BubbleSortONE.BubbleSort (gather, c ) ;
-		
 		int count1 = 0 ; 
 		int []array = list.get(myrank) ; 
 		for ( int i = 0 ; i< filesize ; i++ ){
@@ -233,19 +216,14 @@ class BubbleSortONE {
 		 // System.out.println( myrank + " * "+ gather[count1] +" * "+ count ) ; 
 		  count1++ ; 
 		  if(count1 == c ){ break ; }
-		   
 		}
-	
-		
 	}
-   
 	  MPI.COMM_WORLD.send(message, 1, MPI.INT, next, tag);
 	  MPI.COMM_WORLD.send(eachfile, filesize,  MPI.INT, next, tag);
 	  for ( int i = 0 ; i < list.size() ; i++ ) {
 	      MPI.COMM_WORLD.send(list.get(i), filesize,  MPI.INT, next, tag);
 	  }
 
-	  
 	  if (0 == message[0]) {
 		System.out.println("Process " + myrank + " exiting");
         	break;
@@ -254,20 +232,14 @@ class BubbleSortONE {
 
 	/* The last process does one extra send to process 0, which needs
 	   to be received before the program can exit */
-
 	if (0 == myrank) {
 	    MPI.COMM_WORLD.recv(message,1, MPI.INT, prev, tag);
 	    MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
 	    for ( int i = 0 ; i < list.size() ; i++ ) {
 	      MPI.COMM_WORLD.recv(list.get(i), filesize,  MPI.INT, prev, tag);
 	    }
-	    /*
-	    for( int a = 0 ; a < 4 ; a++){
-	      for ( int i = 0 ; i< 255 ; i++ ){
-		  System.out.println ( "Finally : " + list.get(a)[i] + " - index *" + i) ;
-	      }
-	    } */ 
-	
+	    
+	   /* Copy all the host's array into host0 array  */	
 	    if (list.get(0)[0] != 0){
 	      for( int a = 1 ; a < list.size() ; a++){ // copy everything into first array 
 		int index = 0 ; 
@@ -281,18 +253,15 @@ class BubbleSortONE {
 	      } 
 	   }
 	   
-	   
 	   String text = "" ; 
 	   for ( int i = 0 ; i< filesize ; i++ ){
 		 // System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
 		  text+= list.get(0)[i] + "\n" ;
 	   }
-	   
 	   long stopTime =   System.currentTimeMillis(); 
 	   long time =stopTime - startTime ; 
 	   String t = "Time took to sort : "+ time + " ms \n";
 	   writeTextFile((savedfile), t+""+text ) ;
-	  
 	   System.out.println ( "Sorted array save to " + savedfile.getName() );
 	   System.out.println ("Time it take to sort "+  filenames[ia] +" : "+time + " ms"); 
 		
