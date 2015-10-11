@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList; 
  
 class SelectionSortONE {
-//http://java2novice.com/java-sorting-algorithms/selection-sort/
+/* This method is from  http://java2novice.com/java-sorting-algorithms/selection-sort/ */
     public static void selectionSort( int [ ] a ){
 	
 	     for (int i = 0; i < a.length - 1; i++){
@@ -47,7 +47,7 @@ class SelectionSortONE {
 	} 		
 
   private static void writeTextFile(File file, String text) {
-				// physically write file
+	// physically write file
 	try {
 		FileOutputStream fo = new FileOutputStream(file);
 		fo.write(text.getBytes());
@@ -85,10 +85,10 @@ class SelectionSortONE {
 	/* Calculate the rank of the next process in the ring.  Use the
 	   modulus operator so that the last process "wraps around" to
 	   rank zero. */
-
 	next = (myrank + 1) % size;
 	prev = (myrank + size - 1) % size;
 	
+	/*name of all the data file so it easy when execute just to write the index as arguments*/
     	String[] filenames = {"med.3.killer.1000.txt","med.3.killer.10000.txt","rand.dups.1000.txt","rand.dups.10000.txt","rand.dups.100000.txt",
     			"rand.no.dups.1000.txt","rand.no.dups.10000.txt","rand.no.dups.100000.txt", "rand.steps.1000.txt","rand.steps.10000.txt",
     			"rand.steps.100000.txt", "rev.partial.1000.txt","rev.partial.10000.txt","rev.partial.100000.txt", "rev.saw.1000.txt","rev.saw.10000.txt",
@@ -100,6 +100,7 @@ class SelectionSortONE {
 	put the number of times to go around the ring in the
 	message. */
         if (0 == myrank) {
+        /* Process 0 will read the file and put it in an array */	
             try {
     		File file = new File(filenames[ia]);
     	
@@ -115,9 +116,11 @@ class SelectionSortONE {
 	    message[0] = 1 ; 
 	    System.out.println( myrank +" COUNT : "+ count );
 	    System.out.println("Process 0 sending " + message + " to rank " + next + " (" + size + " processes in ring) -"+ tag); 
-	    MPI.COMM_WORLD.send(message, 1,  MPI.INT, next, tag);		 
+	    /*Send the nubmer of time that process need to go around the ring*/
+	    MPI.COMM_WORLD.send(message, 1,  MPI.INT, next, tag);	
+	    /*Send the data array that read from the file */
 	    MPI.COMM_WORLD.send(eachfile, filesize,  MPI.INT, next, tag);
-	 
+	    /*Send number (4 if there 4 process , 6 if there 6 process) of array  */
 	    for ( int i = 0 ; i < list.size() ; i++ ) {
 	      MPI.COMM_WORLD.send(list.get(i), filesize,  MPI.INT, next, tag);
 	    }
@@ -134,7 +137,7 @@ class SelectionSortONE {
 	
 	while (true) {
 		
-	    	
+	    /* Recv all the array that sent*/	
 	    MPI.COMM_WORLD.recv(message,1, MPI.INT, prev, tag);
 	    MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
 	    for ( int i = 0 ; i < list.size() ; i++ ) {
@@ -145,9 +148,7 @@ class SelectionSortONE {
 	 if (0 == myrank) {
 		--message[0];
 		System.out.println ( "Here" + myrank);
-	//	int boundSize  = (filesize/size ) ; 
-	//	int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
-	//	int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)
+		/* Calculate the range that process 0 should take from the file */
 		float bound =  ((float)filesize/ (float)size);
 		float lb = (float) bound* (float)myrank ; 
 		float ub = (float)(bound * ((float)myrank+1))-1;
@@ -157,14 +158,17 @@ class SelectionSortONE {
 		System.out.println("Process 0 decremented value: " + message[40] + " -"+ tag);
 		int[] gather = new int[filesize] ; 
 		c = 0 ;
+		/* Go through the data array and pick the data that fit the range */
 		for ( int i = 0 ; i < filesize ;i++ ){
 			if(eachfile[i] >= lowerBound && eachfile[i] <=  upperBound ){
 				gather[c] = eachfile[i] ; 
 				c++ ; 
 			}
 		}
+		/* Sort the process 's arry */
 		SelectionSortONE.selectionSort (gather, c ) ;
 		int count1 = 0 ; 
+		/* Copy it to the list.get(0) array */
 		for ( int i = 0 ; i< filesize ; i++ ){
 		   list.get(0)[i] = gather[count1] ; 
 		   //System.out.println( myrank + " * "+ gather[count1] +" * "+ count ) ; 
@@ -178,9 +182,7 @@ class SelectionSortONE {
 		
 	else {	
 		System.out.println ( "Here" + myrank);
-		//	int boundSize  = (filesize/size ) ; 
-	//	int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
-	//	int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)
+		/* Calculate the range that process 0 should take from the file */
 		float bound =  ((float)filesize/ (float)size);
 		float lb = (float) bound* (float)myrank ; 
 		float ub = (float)(bound * ((float)myrank+1))-1;
@@ -196,6 +198,7 @@ class SelectionSortONE {
 		System.out.println("Process 0 decremented value: " + message[0] + " -"+ tag);
 		int[] gather = new int[filesize] ; 
 		c = 0 ;
+		/* Go through the data array and pick the data that fit the range */
 		for ( int i = 0 ; i < filesize ;i++ ){
 		  if(eachfile[i] >= lowerBound && eachfile[i] <=  upperBound ){
 			gather[c] = eachfile[i] ; 
@@ -232,19 +235,14 @@ class SelectionSortONE {
 
 	/* The last process does one extra send to process 0, which needs
 	   to be received before the program can exit */
-
+  
 	if (0 == myrank) {
 	    MPI.COMM_WORLD.recv(message,1, MPI.INT, prev, tag);
 	    MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
 	    for ( int i = 0 ; i < list.size() ; i++ ) {
 	      MPI.COMM_WORLD.recv(list.get(i), filesize,  MPI.INT, prev, tag);
 	    }
-	    /*
-	    for( int a = 0 ; a < 4 ; a++){
-	      for ( int i = 0 ; i< 255 ; i++ ){
-		  System.out.println ( "Finally : " + list.get(a)[i] + " - index *" + i) ;
-	      }
-	    } */ 
+	    
 	
 	    if (list.get(0)[0] != 0){
 	      for( int a = 1 ; a < list.size() ; a++){ // copy everything into first array 
