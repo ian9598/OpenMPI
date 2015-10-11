@@ -94,7 +94,7 @@ class SelectionSortONE {
     			"rand.steps.100000.txt", "rev.partial.1000.txt","rev.partial.10000.txt","rev.partial.100000.txt", "rev.saw.1000.txt","rev.saw.10000.txt",
     			"rev.saw.100000.txt", "seq.partial.1000.txt","seq.partial.10000.txt","seq.partial.100000.txt","seq.saw.1000.txt",
     			"seq.saw.10000.txt", "seq.saw.100000.txt"};
-    	File savedfile = new File("result/" + filenames[ia] + "SELECTIONSORTED.txt"); 		
+    	File savedfile = new File("result/" + filenames[ia] + size+"SELECTIONSORTED.txt"); 		
     	
         /* If we are the "master" process (i.e., MPI_COMM_WORLD rank 0),
 	put the number of times to go around the ring in the
