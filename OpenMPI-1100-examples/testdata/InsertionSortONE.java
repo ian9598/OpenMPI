@@ -139,9 +139,14 @@ class InsertionSortONE {
 	 if (0 == myrank) {
 		--message[0];
 		System.out.println ( "Here" + myrank);
-		int boundSize  = (filesize/size ) ; 
-		int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
-		int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)
+		//	int boundSize  = (filesize/size ) ; 
+	//	int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
+	//	int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)
+		float bound = (float) (filesize/size);
+		float lb = (float) bound* myrank ; 
+		float ub = (float)(bound * (myrank+1))-1;
+		int lowerBound = Math.round(lb);
+		int upperBound = Math.round(ub);
 
 		System.out.println("Process 0 decremented value: " + message[40] + " -"+ tag);
 		int[] gather = new int[filesize] ; 
@@ -167,9 +172,14 @@ class InsertionSortONE {
 		
 	else {	
 		System.out.println ( "Here" + myrank);
-		int boundSize  = (filesize/size ) ; 
-		int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
-		int upperBound = 0 ; 
+		//	int boundSize  = (filesize/size ) ; 
+	//	int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
+	//	int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)
+		float bound = (float) (filesize/size);
+		float lb = (float) bound* myrank ; 
+		float ub = (float)(bound * (myrank+1))-1;
+		int lowerBound = Math.round(lb);
+		int upperBound = Math.round(ub);
 		if ( myrank == size-1 ) {
 		  upperBound = (boundSize * (myrank+1)); 
 		}
