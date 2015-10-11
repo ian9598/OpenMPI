@@ -3,7 +3,6 @@
  *
  * Simple ring test program
  */
-
 import mpi.* ;
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,7 +14,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList; 
  
 class InsertionSortONE {
-
+    /* This method is from //http://courses.cs.washington.edu/courses/cse373/01wi/slides/Measurement/sld010.htm
+    */
     public static void insertionSort( int [ ] a )
 	{
 	     for ( int i =1 ; i< a.length ; i++ ){
@@ -41,7 +41,7 @@ class InsertionSortONE {
 	} 		
 
     private static void writeTextFile(File file, String text) {
-				// physically write file
+	// physically write file
 	try {
 		FileOutputStream fo = new FileOutputStream(file);
 		fo.write(text.getBytes());
@@ -90,13 +90,11 @@ class InsertionSortONE {
     			"seq.saw.10000.txt", "seq.saw.100000.txt"};
     	File savedfile = new File(size+"INresult/" + filenames[ia] + size + "INSERTIONSORT.txt"); 		
     	
-        /* If we are the "master" process (i.e., MPI_COMM_WORLD rank 0),
-	put the number of times to go around the ring in the
-	message. */
+        // Process 0
         if (0 == myrank) {
             try {
+            	/* Process 0 will take responsible for reading the data file in */
     		File file = new File(filenames[ia]);
-    	
     		startTime =  System.currentTimeMillis();
              	BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
              	StringBuffer tmp = new StringBuffer();
@@ -109,9 +107,11 @@ class InsertionSortONE {
 	    message[0] = 1 ; 
 	    System.out.println( myrank +" COUNT : "+ count );
 	    System.out.println("Process 0 sending " + message + " to rank " + next + " (" + size + " processes in ring) -"+ tag); 
-	    MPI.COMM_WORLD.send(message, 1,  MPI.INT, next, tag);		 
+	    /* Send number of time that process need to go around the ring ( 1 for this ) */
+	    MPI.COMM_WORLD.send(message, 1,  MPI.INT, next, tag);
+	    /* Send the data array */
 	    MPI.COMM_WORLD.send(eachfile, filesize,  MPI.INT, next, tag);
-	 
+	    /*loop through size process (4 process so loop through 4 times) and send the array to the next process*/
 	    for ( int i = 0 ; i < list.size() ; i++ ) {
 	      MPI.COMM_WORLD.send(list.get(i), filesize,  MPI.INT, next, tag);
 	    }
@@ -127,8 +127,7 @@ class InsertionSortONE {
 	   and can quit normally. */
 	
 	while (true) {
-		
-	    	
+	    /* Recieve all the sending array */	
 	    MPI.COMM_WORLD.recv(message,1, MPI.INT, prev, tag);
 	    MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
 	    for ( int i = 0 ; i < list.size() ; i++ ) {
@@ -139,9 +138,7 @@ class InsertionSortONE {
 	 if (0 == myrank) {
 		--message[0];
 		System.out.println ( "Here" + myrank);
-		//	int boundSize  = (filesize/size ) ; 
-	//	int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
-	//	int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)
+		/* Calculate the range that the master process should take */
 		float bound =  ((float)filesize/ (float)size);
 		float lb = (float) bound* (float)myrank ; 
 		float ub = (float)(bound * ((float)myrank+1))-1;
@@ -151,30 +148,28 @@ class InsertionSortONE {
 		System.out.println("Process 0 decremented value: " + message[40] + " -"+ tag);
 		int[] gather = new int[filesize] ; 
 		c = 0 ;
+		/* Go thrugh the data array and take the data that is in the range */
 		for ( int i = 0 ; i < filesize ;i++ ){
 			if(eachfile[i] >= lowerBound && eachfile[i] <=  upperBound ){
 				gather[c] = eachfile[i] ; 
 				c++ ; 
 			}
 		}
+		/*Sort the array that belong to the master process*/ 
 		InsertionSortONE.insertionSort (gather, c ) ;
 		int count1 = 0 ; 
+		/*And Copy it back into the array */
 		for ( int i = 0 ; i< filesize ; i++ ){
 		   list.get(0)[i] = gather[count1] ; 
 		  // System.out.println( myrank + " * "+ gather[count1] +" * "+ count ) ; 
 		   count1++ ; 
 		   if(count1 == c ){ break ; }
 		}
-	
-		
-		
  	 }	
 		
 	else {	
 		System.out.println ( "Here" + myrank);
-		//	int boundSize  = (filesize/size ) ; 
-	//	int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
-	//	int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)
+		/* Calculate the range that the master process should take */
 		float bound =  ((float)filesize/ (float)size);
 		float lb = (float) bound* (float)myrank ; 
 		float ub = (float)(bound * ((float)myrank+1))-1;
@@ -190,6 +185,7 @@ class InsertionSortONE {
 		System.out.println("Process 0 decremented value: " + message[0] + " -"+ tag);
 		int[] gather = new int[filesize] ; 
 		c = 0 ;
+		/* Go thrugh the data array and take the data that is in the range */
 		for ( int i = 0 ; i < filesize ;i++ ){
 		  if(eachfile[i] >= lowerBound && eachfile[i] <=  upperBound ){
 			gather[c] = eachfile[i] ; 
@@ -202,22 +198,17 @@ class InsertionSortONE {
 		int []array = list.get(myrank) ; 
 		for ( int i = 0 ; i< filesize ; i++ ){
 		  array[i] = gather[count1] ; 
-		  //System.out.println( myrank + " * "+ gather[count1] +" * "+ count ) ; 
 		  count1++ ; 
 		  if(count1 == c ){ break ; }
-		   
 		}
-	
-		
 	}
-   
+	 /* Send all the array to the next process*/   
 	  MPI.COMM_WORLD.send(message, 1, MPI.INT, next, tag);
 	  MPI.COMM_WORLD.send(eachfile, filesize,  MPI.INT, next, tag);
 	  for ( int i = 0 ; i < list.size() ; i++ ) {
 	      MPI.COMM_WORLD.send(list.get(i), filesize,  MPI.INT, next, tag);
 	  }
 
-	  
 	  if (0 == message[0]) {
 		System.out.println("Process " + myrank + " exiting");
         	break;
@@ -226,7 +217,6 @@ class InsertionSortONE {
 
 	/* The last process does one extra send to process 0, which needs
 	   to be received before the program can exit */
-
 	if (0 == myrank) {
 	    MPI.COMM_WORLD.recv(message,1, MPI.INT, prev, tag);
 	    MPI.COMM_WORLD.recv(eachfile, filesize,  MPI.INT, prev, tag);
@@ -253,23 +243,17 @@ class InsertionSortONE {
 	      } 
 	   }
 	   
-	   
 	   String text = "" ; 
 	   for ( int i = 0 ; i< filesize ; i++ ){
-		 // System.out.println ( "Finally : " + list.get(0)[i] + " - index *" + i) ;
 		  text+= list.get(0)[i] + "\n" ;
 	   }
 	   long stopTime =   System.currentTimeMillis(); 
 	   long time =stopTime - startTime ; 
 	   String t = "Time took to sort : "+ time + " ms \n";
 	   writeTextFile((savedfile), t+""+text ) ;	  
-
-	 
 	   System.out.println ( "Sorted array save to " + savedfile.getName() );
 	   System.out.println ("Time it take to sort "+  filenames[ia] +" : "+time + " ms"); 
-		
 	}
-    
 	MPI.Finalize();
     }
 }
