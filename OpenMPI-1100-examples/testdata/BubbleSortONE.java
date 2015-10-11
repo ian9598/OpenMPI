@@ -101,7 +101,7 @@ class BubbleSortONE {
     			"rand.steps.100000.txt", "rev.partial.1000.txt","rev.partial.10000.txt","rev.partial.100000.txt", "rev.saw.1000.txt","rev.saw.10000.txt",
     			"rev.saw.100000.txt", "seq.partial.1000.txt","seq.partial.10000.txt","seq.partial.100000.txt","seq.saw.1000.txt",
     			"seq.saw.10000.txt", "seq.saw.100000.txt"};
-    	File savedfile = new File("result/" +filenames[ia] + "BUBBLESORT.txt"); 		
+    	File savedfile = new File("result/" +filenames[ia] + size + "BUBBLESORT.txt"); 		
 /*	 try {
                 File file = new File(filenames[ia]);
         
