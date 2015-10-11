@@ -181,11 +181,11 @@ class InsertionSortONE {
 		int lowerBound = Math.round(lb);
 		int upperBound = Math.round(ub);
 		if ( myrank == size-1 ) {
-		  upperBound = (boundSize * (myrank+1)); 
+		  upperBound = Math.round((bound * (myrank+1))); 
 		}
 		else {
-		  upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)
-		}  
+		  upperBound = Math.round((bound * (myrank+1)) -1  );  // ( 0.25*1)
+		}    
 
 		System.out.println("Process 0 decremented value: " + message[0] + " -"+ tag);
 		int[] gather = new int[filesize] ; 
