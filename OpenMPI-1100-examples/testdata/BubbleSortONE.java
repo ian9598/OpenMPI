@@ -169,9 +169,10 @@ class BubbleSortONE {
 	//	int boundSize  = (filesize/size ) ; 
 	//	int lowerBound = boundSize * myrank  ; // ( 0.25 * 0)
 	//	int upperBound = (boundSize * (myrank+1)) -1  ;  // ( 0.25*1)
-		float bound = (float) (filesize/size);
-		float lb = (float) bound* myrank ; 
-		float ub = (float)(bound * (myrank+1))-1;
+		
+		float bound =  ((float)filesize/ (float)size);
+		float lb = (float) bound* (float)myrank ; 
+		float ub = (float)(bound * ((float)myrank+1))-1;
 		int lowerBound = Math.round(lb);
 		int upperBound = Math.round(ub);
 		System.out.println("Process 0 decremented value: " + message[0] + " -"+ tag);
